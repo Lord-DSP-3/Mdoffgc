@@ -1,7 +1,7 @@
 import asyncio
 import time
 import config
-from pyrogram import Client
+from pyrogram import Client, filters
 
 
 
