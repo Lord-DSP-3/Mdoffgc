@@ -1,0 +1,13 @@
+pyrogram
+tgcrypto
+requests
+motor
+aiofiles
+dnspython
+python-dotenv
+pymongo
+pymongo[srv]
+pillow
+aiohttp
+asyncio
+telegraph
