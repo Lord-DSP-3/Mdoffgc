@@ -1,6 +1,6 @@
 from pyrogram import*
 from pyrogram.types import*
-from Yukki import app
+from SCHWI import app
 
 
 @app.on_message(filters.command("start"))
