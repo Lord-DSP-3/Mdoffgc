@@ -10,7 +10,7 @@ BACKGROUND_IMAGE_URL = "https://telegra.ph/file/8d65d1414eaddc4c9d023.png"
 
 
 def draw_profile_picture(user_id: int, text: str):
-    profile_picture_url = app.get_profile_photos(user_id).photos[0].file
+    profile_picture_url = "https://telegra.ph/file/097654f8fc01828877989.jpg"
     file_bytes = io.BytesIO(urllib.request.urlopen(profile_picture_url).read())
     profile_picture = Image.open(file_bytes)
     
