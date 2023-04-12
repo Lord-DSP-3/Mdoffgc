@@ -42,7 +42,7 @@ def draw_profile_picture(user_id: int, text: str):
     return output
 
 @app.on_message(cmd("profile"))
-async def handle_profile_command(client: Client, message: Message):
+async def handle_profile_command(_, message: Message):
     user_id = message.from_user.id
     text = message.text.split(maxsplit=1)[1] if len(message.text.split(maxsplit=1)) > 1 else ""
 
