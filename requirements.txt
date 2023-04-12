@@ -5,8 +5,6 @@ aiofiles
 dnspython
 python-dotenv
 pymongo
-pillow
 aiohttp
 asyncio
 telegraph
-urllib3
