@@ -30,5 +30,28 @@ def draw_profile_picture(user_id: int, text: str):
     
     draw = ImageDraw.Draw(background_image)
     font = ImageDraw.truetype(FONT_PATH, size=40)
+    text_size = draw.textsize(text, font=font)
+    x = (background_image.size[0] - text_size[0]) // 2
+    y = (background_image.size[1] + profile_picture.size[1]) // 2 + 20
+    draw.text((x, y), text, font=font, fill=(255, 255, 255))
+
+    output = io.BytesIO()
+    background_image.save(output, format="JPEG")
+    output.seek(0)
+
+    return output
+
+@app.on_message(cmd("profile"))
+async def handle_profile_command(client: Client, message: Message):
+    user_id = message.from_user.id
+    text = message.text.split(maxsplit=1)[1] if len(message.text.split(maxsplit=1)) > 1 else ""
+
+    # Draw the profile picture and text on an image
+    image_bytes = draw_profile_picture(user_id, text)
+
+    # Send the image to the user
+    await message.reply_photo(image_bytes)
+
+
     
   
