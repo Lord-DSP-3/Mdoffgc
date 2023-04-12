@@ -6,7 +6,7 @@ from pyrogram.types import Message
 from SCHWI import app, cmd
 
 FONT_PATH = "HELPER/OpenSans-ExtraBoldItalic.ttf"
-BACKGROUND_IMAGE_URL = ""
+BACKGROUND_IMAGE_URL = "https://telegra.ph/file/8d65d1414eaddc4c9d023.png"
 
 
 def draw_profile_picture(user_id: int, text: str):
