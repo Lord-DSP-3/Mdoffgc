@@ -8,3 +8,4 @@ pymongo
 aiohttp
 asyncio
 telegraph
+bs4==0.0.1
