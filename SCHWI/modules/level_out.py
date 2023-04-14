@@ -1,5 +1,4 @@
 import asyncio
-from types import NoneType
 import requests
 import time
 import random
