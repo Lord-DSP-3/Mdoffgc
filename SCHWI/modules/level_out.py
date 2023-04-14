@@ -7,7 +7,7 @@ cache = dict()
 import requests
 import urllib.parse
 from bs4 import BeautifulSoup as bs
-emoji = "🖥
+emoji = "🖥"
 
 
 class AnimeDex:
