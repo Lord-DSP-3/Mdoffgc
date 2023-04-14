@@ -240,15 +240,6 @@ async def return_json_senpai(
 ):
     url = "https://graphql.anilist.co"
     headers = None
-    if auth:
-        headers = {
-            'Authorization': (
-                'Bearer ' 
-                +str((await AUTH_USERS.find_one({"id": int(user)}))['token'])
-            ),
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        }
     return requests.post(
         url,
         json={"query": query, "variables": vars_},
@@ -436,10 +427,11 @@ async def get_anime(
 @app.on_message(
     filters.command(["anime"])
 )
-async def anime_cmd(client: Client, message: Message, mdata: dict):
+async def anime_cmd(_, message: Message):
     """Search Anime Info"""
-    text = mdata['text'].split(" ", 1)
-    gid = mdata['chat']['id']
+   
+    text = message.text   #mdata['text'].split(" ", 1)
+    gid = message.from_user.id  #mdata['chat']['id']
     try:
         user = mdata['from_user']['id']
         auser = mdata['from_user']['id']
