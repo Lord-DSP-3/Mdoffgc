@@ -433,8 +433,8 @@ async def anime_cmd(_, message: Message):
     text = message.text   #mdata['text'].split(" ", 1)
     gid = message.from_user.id  #mdata['chat']['id']
     try:
-        user = mdata['from_user']['id']
-        auser = mdata['from_user']['id']
+        user = message.from_user.id
+        auser = message.from_user.id
     except:
         await message.reply_text("AN ERROR AT 35 LINE")
     if len(text) == 1:
