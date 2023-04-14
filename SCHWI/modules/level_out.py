@@ -8,6 +8,7 @@ from pyrogram import*
 from pyrogram.enums import ChatMemberStatus, ChatType
 from pyrogram.types import*
 from pyrogram.errors import UserNotParticipant, WebpageCurlFailed, WebpageMediaEmpty
+from SCHWI import app
 
 
 failed_pic = "https://telegra.ph/file/09733b49f3a9d5b147d21.png"
