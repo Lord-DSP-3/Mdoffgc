@@ -436,7 +436,7 @@ async def get_anime(
 @app.on_message(
     filters.command(["anime"])
 )
-async def anime_cmd(_, message: Message, mdata: dict):
+async def anime_cmd(client: Client, message: Message, mdata: dict):
     """Search Anime Info"""
     text = mdata['text'].split(" ", 1)
     gid = mdata['chat']['id']
