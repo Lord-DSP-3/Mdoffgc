@@ -10,6 +10,7 @@ from pyrogram.enums import ChatMemberStatus, ChatType
 from pyrogram.types import*
 from pyrogram.errors import UserNotParticipant, WebpageCurlFailed, WebpageMediaEmpty
 
+
 failed_pic = "https://telegra.ph/file/09733b49f3a9d5b147d21.png"
 PIC_LS  = [
     'https://telegra.ph/file/0d2097f442e816ba3f946.jpg',
