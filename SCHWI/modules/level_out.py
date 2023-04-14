@@ -6,7 +6,7 @@ from string import hexdigits
 cache = dict()
 import requests
 import urllib.parse
-from bs4 import BeautifulSoup as bs
+from lxml import html as bs
 emoji = "🖥"
 
 
