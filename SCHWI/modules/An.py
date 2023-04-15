@@ -4,14 +4,14 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from SCHWI import app as bot
 
-
-
 API_URL = "https://graphql.anilist.co"
 
-@bot.on_inline_query()
-def search_anime(client, query):
-    """Search for anime on AniList and send possible results as inline buttons."""
-    results = []
+
+
+@bot.on_message(filters.command("anime"))
+def search_anime(client, message):
+    """Search for anime on AniList and send possible results as a message with inline buttons."""
+    query = message.text.split(" ", 1)[1]
     search_query = """
         query ($search: String) {
             Media (search: $search, type: ANIME) {
@@ -23,10 +23,14 @@ def search_anime(client, query):
         }
     """
     variables = {
-        "search": query.query
+        "search": query
     }
     response = requests.post(API_URL, json={"query": search_query, "variables": variables}).json()
     anime_list = response.get("data", {}).get("Media", [])
+    if len(anime_list) == 0:
+        message.reply_text("No anime found.")
+        return
+    results = []
     for anime in anime_list:
         title = anime.get("title", {}).get("romaji", "Unknown Title")
         anime_id = anime.get("id")
@@ -37,8 +41,8 @@ def search_anime(client, query):
             )
         )
     reply_markup = InlineKeyboardMarkup([results])
-    query.answer(results=results, cache_time=1, is_personal=True, switch_pm_text="No anime found.", switch_pm_parameter="no_anime_found")
-    
+    message.reply_text("Please select an anime:", reply_markup=reply_markup)
+
 @bot.on_callback_query()
 def send_anime_info(client, callback_query):
     """Send information about the selected anime."""
@@ -75,3 +79,5 @@ def send_anime_info(client, callback_query):
         os.remove(cover_image_file)
     else:
         callback_query.answer("No cover image found for this anime.", show_alert=True)
+
+
