@@ -1,11 +1,13 @@
+
+from SCHWI import app as bot
+
+
 import os
 import requests
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from SCHWI import app as bot
 
 API_URL = "https://graphql.anilist.co"
-
 
 @bot.on_callback_query()
 def send_anime_info(client, callback_query):
@@ -28,8 +30,12 @@ def send_anime_info(client, callback_query):
     variables = {
         "id": int(anime_id)
     }
-    response = requests.post(API_URL, json={"query": anime_query, "variables": variables}).json()
-    anime_info = response.get("data", {}).get("Media")
+    response = requests.post(API_URL, json={"query": anime_query, "variables": variables})
+    try:
+        anime_info = response.json().get("data", {}).get("Media")
+    except ValueError:
+        print(response.content)
+        return
     title = anime_info.get("title", {}).get("romaji", "Unknown Title")
     cover_image_url = anime_info.get("coverImage", {}).get("medium", None)
     description = anime_info.get("description", "No description available.")
@@ -61,8 +67,12 @@ def search_anime(client, message):
     variables = {
         "search": query
     }
-    response = requests.post(API_URL, json={"query": search_query, "variables": variables}).json()
-    anime_list = response.get("data", {}).get("Media", [])
+    response = requests.post(API_URL, json={"query": search_query, "variables": variables})
+    try:
+        anime_list = response.json().get("data", {}).get("Media", [])
+    except ValueError:
+        print(response.content)
+        return
     results = []
     for anime in anime_list:
         title = anime.get("title", {}).get("romaji", "Unknown Title")
