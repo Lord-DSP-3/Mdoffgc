@@ -1,4 +1,4 @@
-from SCHWI import app as bot
+from SCHWI import app as Bot
 from pyrogram import Client, filters
 from config import ADMINS
 import pymongo, os
