@@ -1,6 +1,6 @@
+from SCHWI import app as bot
 from pyrogram import Client, filters
 import requests
-from SCHWI import app as bot
 
 # Command to get anime info
 @bot.on_message(filters.command(["anime"]))
@@ -66,6 +66,5 @@ def anime_info(client, message):
                    f"<b>Description:</b> {description}\n"\
                    f"<b>Cover Image:</b> {cover_image}"
     
-    message.reply_text(message_text, parse_mode="HTML")
-
+    await message.reply_text(message_text)
 
