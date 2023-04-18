@@ -2,72 +2,6 @@ from SCHWI import app as bot
 from pyrogram import Client, filters
 import requests
 
-
-# Command to get anime info by ID
-@bot.on_message(filters.command(["anime"]))
-def anime_info(client, message):
-    # Get the anime ID from the command arguments
-    args = message.text.split()
-    if len(args) < 2:
-        message.reply_text("Please provide an anime ID.")
-        return
-    anime_id = int(args[1])
-
-    # Build the AniList API query URL
-    query = '''
-    query ($id: Int) {
-        Media (id: $id, type: ANIME) {
-            id
-            title {
-                romaji
-                english
-                native
-            }
-            bannerImage
-            description
-            format
-            episodes
-            status
-            genres
-            averageScore
-        }
-    }
-    '''
-    variables = {"id": anime_id}
-    url = "https://graphql.anilist.co"
-    response = requests.post(url, json={"query": query, "variables": variables})
-
-    # Check if the API request was successful
-    if response.status_code != 200:
-        message.reply_text("Failed to get anime info.")
-        return
-
-    # Parse the API response and format the message
-    data = response.json()["data"]
-    anime = data["Media"]
-    if not anime:
-        message.reply_text(f"No anime found with the ID '{anime_id}'.")
-        return
-
-    title = anime["title"]["english"] or anime["title"]["romaji"]
-    banner_url = anime["bannerImage"]
-    description = anime["description"]
-    format = anime["format"]
-    episodes = anime["episodes"]
-    status = anime["status"]
-    genres = ", ".join(anime["genres"])
-    average_score = anime["averageScore"]
-
-    message_text = f"<b>{title}</b>\n"
-    message_text += f"<i>{format} - {status}</i>\n"
-    message_text += f"<b>Genres:</b> {genres}\n\n"
-    message_text += f"<b>Average Score:</b> {average_score}/100\n\n"
-    message_text += f"{description}"
-
-    message.reply_photo(banner_url, caption=message_text)
-
-
-
 # Command to search for an anime and get its info
 @bot.on_message(filters.command(["search"]))
 def search_anime(client, message):
@@ -118,3 +52,167 @@ def search_anime(client, message):
 
     message.reply_text(message_text)
 
+from pyrogram import Client, filters
+import requests
+
+# Replace "YOUR_BOT_TOKEN" with your actual bot token
+bot = Client("my_bot", bot_token="YOUR_BOT_TOKEN")
+
+# Command to get anime info by ID
+@bot.on_message(filters.command(["anime_info"]))
+def anime_info(client, message):
+    # Get the anime ID from the command arguments
+    args = message.text.split()
+    if len(args) < 2:
+        message.reply_text("Please provide an anime ID.")
+        return
+    anime_id = int(args[1])
+
+    # Build the AniList API query URL
+    query = '''
+    query ($id: Int) {
+        Media (id: $id, type: ANIME) {
+            id
+            title {
+                romaji
+                english
+                native
+            }
+            coverImage {
+                extraLarge
+            }
+            description
+            format
+            episodes
+            status
+            genres
+            averageScore
+            studios(isMain: true) {
+                edges {
+                    node {
+                        name
+                    }
+                }
+            }
+            startDate {
+                year
+                month
+                day
+            }
+        }
+    }
+    '''
+    variables = {"id": anime_id}
+    url = "https://graphql.anilist.co"
+    response = requests.post(url, json={"query": query, "variables": variables})
+
+    # Check if the API request was successful
+    if response.status_code != 200:
+        message.reply_text("Failed to get anime info.")
+        return
+
+    # Parse the API response and format the message
+    data = response.json()["data"]
+    anime = data["Media"]
+    if not anime:
+        message.reply_text(f"No anime found with the ID '{anime_id}'.")
+        return
+
+    title = anime["title"]["english"] or anime["title"]["romaji"]
+    cover_url = anime["coverImage"]["extraLarge"]
+    description = anime["description"]
+    format = anime["format"]
+    episodes = anime["episodes"]
+    status = anime["status"]
+    genres = ", ".join(anime["genres"])
+    average_score = anime["averageScore"]
+    studio = anime["studios"]["edges"][0]["node"]["name"]
+    start_date = f"{anime['startDate']['day']}/{anime['startDate']['month']}/{anime['startDate']['year']}"
+
+    message_text = f"<b>{title}</b>\n"
+    message_text += f"<i>{studio} - {start_date}</i>\n"
+    message_text += f"<b>Genres:</b> {genres}\n\n"
+    message_text += f"<b>Average Score:</b> {average_score}/100\n\n"
+    message_text += f"{description}"
+
+    message.reply_photo(cover_url, caption=message_text, parse_mode="HTML")
+
+
+# Command to get anime info by ID
+@bot.on_message(filters.command(["anime"]))
+def anime_info(client, message):
+    # Get the anime ID from the command arguments
+    args = message.text.split()
+    if len(args) < 2:
+        message.reply_text("Please provide an anime ID.")
+        return
+    anime_id = int(args[1])
+
+    # Build the AniList API query URL
+    query = '''
+    query ($id: Int) {
+        Media (id: $id, type: ANIME) {
+            id
+            title {
+                romaji
+                english
+                native
+            }
+            coverImage {
+                extraLarge
+            }
+            description
+            format
+            episodes
+            status
+            genres
+            averageScore
+            studios(isMain: true) {
+                edges {
+                    node {
+                        name
+                    }
+                }
+            }
+            startDate {
+                year
+                month
+                day
+            }
+        }
+    }
+    '''
+    variables = {"id": anime_id}
+    url = "https://graphql.anilist.co"
+    response = requests.post(url, json={"query": query, "variables": variables})
+
+    # Check if the API request was successful
+    if response.status_code != 200:
+        message.reply_text("Failed to get anime info.")
+        return
+
+    # Parse the API response and format the message
+    data = response.json()["data"]
+    anime = data["Media"]
+    if not anime:
+        message.reply_text(f"No anime found with the ID '{anime_id}'.")
+        return
+
+    title = anime["title"]["english"] or anime["title"]["romaji"]
+    cover_url = anime["coverImage"]["extraLarge"]
+    description = anime["description"]
+    format = anime["format"]
+    episodes = anime["episodes"]
+    status = anime["status"]
+    genres = ", ".join(anime["genres"])
+    average_score = anime["averageScore"]
+    studio = anime["studios"]["edges"][0]["node"]["name"]
+    start_date = f"{anime['startDate']['day']}/{anime['startDate']['month']}/{anime['startDate']['year']}"
+
+    message_text = f"<b>{title}</b>\n"
+    message_text += f"<i>{studio} - {start_date}</i>\n"
+    message_text += f"<b>Genres:</b> {genres}\n\n"
+    message_text += f"<b>Average Score:</b> {average_score}/100\n\n"
+    message_text += f"{description}"
+
+    message.reply_photo(cover_url, caption=message_text, parse_mode="HTML")
