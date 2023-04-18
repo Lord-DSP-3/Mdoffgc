@@ -64,7 +64,7 @@ def anime_info(client, message):
     message_text += f"<b>Average Score:</b> {average_score}/100\n\n"
     message_text += f"{description}"
 
-    message.reply_photo(banner_url, caption=message_text, parse_mode="HTML")
+    message.reply_photo(banner_url, caption=message_text)
 
 
 
