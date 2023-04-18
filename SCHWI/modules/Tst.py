@@ -236,7 +236,7 @@ def anime_info(client, message):
     message_text += f"<b>Average Score:</b> {average_score}\n"
     message_text += f"Season {season}\n"
     message_text += f"Start: {start_date}  End {end_date} \n\n"
-    message_text += f"DESCRIPTION: {description}
+    message_text += f"DESCRIPTION: {description}"
 
     message.reply_text(message_text)
     message.reply_photo(cover_url, caption=message_text)
