@@ -2,16 +2,17 @@ from SCHWI import app as bot
 from pyrogram import Client, filters
 import requests
 
-# Command to get anime info
+
+# Command to get anime info by ID
 @bot.on_message(filters.command(["anime"]))
-async def anime_info(client, message):
-    # Get the AniList ID from the command arguments
+def anime_info(client, message):
+    # Get the anime ID from the command arguments
     args = message.text.split()
     if len(args) < 2:
-        message.reply_text("Please provide an AniList ID.")
+        message.reply_text("Please provide an anime ID.")
         return
-    anime_id = args[1]
-    
+    anime_id = int(args[1])
+
     # Build the AniList API query URL
     query = '''
     query ($id: Int) {
@@ -22,16 +23,13 @@ async def anime_info(client, message):
                 english
                 native
             }
+            bannerImage
+            description
             format
-            status
             episodes
-            duration
+            status
             genres
             averageScore
-            description
-            coverImage {
-                medium
-            }
         }
     }
     '''
@@ -43,31 +41,30 @@ async def anime_info(client, message):
     if response.status_code != 200:
         message.reply_text("Failed to get anime info.")
         return
-    
+
     # Parse the API response and format the message
-    anime = response.json()["data"]["Media"]
+    data = response.json()["data"]
+    anime = data["Media"]
+    if not anime:
+        message.reply_text(f"No anime found with the ID '{anime_id}'.")
+        return
+
     title = anime["title"]["english"] or anime["title"]["romaji"]
-    status = anime["status"]
+    banner_url = anime["bannerImage"]
+    description = anime["description"]
     format = anime["format"]
     episodes = anime["episodes"]
-    duration = anime["duration"]
+    status = anime["status"]
     genres = ", ".join(anime["genres"])
-    score = anime["averageScore"]
-    description = anime["description"]
-    cover_image = anime["bannerImage"]
-    
-    message_text = f"<b>{title}</b>\n"\
-                   f"<b>Status:</b> {status}\n"\
-                   f"<b>Format:</b> {format}\n"\
-                   f"<b>Episodes:</b> {episodes}\n"\
-                   f"<b>Duration:</b> {duration} min.\n"\
-                   f"<b>Genres:</b> {genres}\n"\
-                   f"<b>Score:</b> {score}/100\n"\
-                   f"<b>Description:</b> {description}"
-    
-    await message.reply_photo(photo=cover_image, caption=message_text)
+    average_score = anime["averageScore"]
 
- 
+    message_text = f"<b>{title}</b>\n"
+    message_text += f"<i>{format} - {status}</i>\n"
+    message_text += f"<b>Genres:</b> {genres}\n\n"
+    message_text += f"<b>Average Score:</b> {average_score}/100\n\n"
+    message_text += f"{description}"
+
+    message.reply_photo(banner_url, caption=message_text, parse_mode="HTML")
 
 
 
@@ -114,10 +111,10 @@ def search_anime(client, message):
 
     # Build the list of search results
     message_text = f"Top 5 search results for '{anime_name}':\n\n"
-    for i, anime in enumerate(anime_list[:5]):
+    for i, anime in enumerate(anime_list[:10]):
         title = anime["title"]["english"] or anime["title"]["romaji"]
         anime_id = anime["id"]
-        message_text += f"{i+1}. {title} (ID: {anime_id})\n"
+        message_text += f"🖥️{i+1}. {title} (ID: {anime_id})\n\n"
 
     message.reply_text(message_text)
 
