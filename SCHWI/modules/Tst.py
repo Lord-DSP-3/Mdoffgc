@@ -52,11 +52,6 @@ def search_anime(client, message):
 
     message.reply_text(message_text)
 
-from pyrogram import Client, filters
-import requests
-
-# Replace "YOUR_BOT_TOKEN" with your actual bot token
-bot = Client("my_bot", bot_token="YOUR_BOT_TOKEN")
 
 # Command to get anime info by ID
 @bot.on_message(filters.command(["anime_info"]))
