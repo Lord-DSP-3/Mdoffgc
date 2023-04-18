@@ -138,6 +138,7 @@ def anime_info(client, message):
     message.reply_photo(cover_url, caption=message_text, parse_mode="HTML")
 
 
+
 # Command to get anime info by ID
 @bot.on_message(filters.command(["anime"]))
 def anime_info(client, message):
@@ -179,6 +180,19 @@ def anime_info(client, message):
                 month
                 day
             }
+            endDate {
+                year
+                month
+                day
+            }
+            duration
+            season
+            seasonYear
+            trailer {
+                id
+                site
+                thumbnail
+            }
         }
     }
     '''
@@ -208,11 +222,17 @@ def anime_info(client, message):
     average_score = anime["averageScore"]
     studio = anime["studios"]["edges"][0]["node"]["name"]
     start_date = f"{anime['startDate']['day']}/{anime['startDate']['month']}/{anime['startDate']['year']}"
+    end_date = f"{anime['endDate']['day']}/{anime['endDate']['month']}/{anime['endDate']['year']}" if anime['endDate'] else ""
+    duration = f"{anime['duration']} mins" if anime['duration'] else ""
+    season = f"{anime['season']} {anime['seasonYear']}" if anime['season'] else ""
+    trailer_url = f"https://www.youtube.com/watch?v={anime['trailer']['id']}" if anime['trailer'] else ""
 
     message_text = f"<b>{title}</b>\n"
-    message_text += f"<i>{studio} - {start_date}</i>\n"
-    message_text += f"<b>Genres:</b> {genres}\n\n"
-    message_text += f"<b>Average Score:</b> {average_score}/100\n\n"
-    message_text += f"{description}"
+    message_text += f"<i>{studio} - {start_date} to {end_date}</i>\n"
+    message_text += f"<b>Genres:</b> {genres}\n"
+    message_text += f"<b>Format:</b> {format}\n"
+    message_text += f"<b>Episodes:</b> {episodes}\n"
+    message_text += f"<b>Status:</b> {status}\n"
+    message_text += f"<b>Average Score:</b> {average_score}\
 
-    message.reply_photo(cover_url, caption=message_text, parse_mode="HTML")
+    message.reply_photo(cover_url, caption=message_text)
