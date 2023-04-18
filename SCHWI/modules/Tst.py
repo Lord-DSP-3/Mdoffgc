@@ -4,7 +4,7 @@ import requests
 
 # Command to get anime info
 @bot.on_message(filters.command(["anime"]))
-def anime_info(client, message):
+async def anime_info(client, message):
     # Get the AniList ID from the command arguments
     args = message.text.split()
     if len(args) < 2:
