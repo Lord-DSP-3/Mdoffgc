@@ -54,7 +54,7 @@ async def anime_info(client, message):
     genres = ", ".join(anime["genres"])
     score = anime["averageScore"]
     description = anime["description"]
-    cover_image = anime["coverImage"]["large"]
+    cover_image = anime["bannerImage"]
     
     message_text = f"<b>{title}</b>\n"\
                    f"<b>Status:</b> {status}\n"\
@@ -70,8 +70,9 @@ async def anime_info(client, message):
  
 
 
+
 # Command to search for an anime and get its info
-@bot.on_message(filters.command(["search_anime"]))
+@bot.on_message(filters.command(["search"]))
 def search_anime(client, message):
     # Get the anime name from the command arguments
     args = message.text.split()
@@ -83,22 +84,14 @@ def search_anime(client, message):
     # Build the AniList API query URL
     query = '''
     query ($search: String) {
-        Media (search: $search, type: ANIME) {
-            id
-            title {
-                romaji
-                english
-                native
-            }
-            format
-            status
-            episodes
-            duration
-            genres
-            averageScore
-            description
-            coverImage {
-                large
+        Page {
+            media(search: $search, type: ANIME) {
+                id
+                title {
+                    romaji
+                    english
+                    native
+                }
             }
         }
     }
@@ -111,35 +104,20 @@ def search_anime(client, message):
     if response.status_code != 200:
         message.reply_text("Failed to get anime info.")
         return
-    
+
     # Parse the API response and format the message
     data = response.json()["data"]
-    media_list = data.get("Media")
-    if not media_list:
+    anime_list = data["Page"]["media"]
+    if not anime_list:
         message.reply_text(f"No anime found with the name '{anime_name}'.")
         return
-    
-    anime = media_list[0]
-    title = anime["title"]["english"] or anime["title"]["romaji"]
-    anime_id = anime["id"]
-    status = anime["status"]
-    format = anime["format"]
-    episodes = anime["episodes"]
-    duration = anime["duration"]
-    genres = ", ".join(anime["genres"])
-    score = anime["averageScore"]
-    description = anime["description"]
-    cover_image = anime["coverImage"]["large"]
-    
-    message_text = f"<b>{title}</b>\n"\
-                   f"<b>AniList ID:</b> {anime_id}\n"\
-                   f"<b>Status:</b> {status}\n"\
-                   f"<b>Format:</b> {format}\n"\
-                   f"<b>Episodes:</b> {episodes}\n"\
-                   f"<b>Duration:</b> {duration} min.\n"\
-                   f"<b>Genres:</b> {genres}\n"\
-                   f"<b>Score:</b> {score}/100\n"\
-                   f"<b>Description:</b> {description}\n"\
-                   f"<b>Cover Image:</b> {cover_image}"
-    
+
+    # Build the list of search results
+    message_text = f"Top 5 search results for '{anime_name}':\n\n"
+    for i, anime in enumerate(anime_list[:5]):
+        title = anime["title"]["english"] or anime["title"]["romaji"]
+        anime_id = anime["id"]
+        message_text += f"{i+1}. {title} (ID: {anime_id})\n"
+
     message.reply_text(message_text)
+
