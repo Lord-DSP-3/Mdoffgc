@@ -54,7 +54,7 @@ async def anime_info(client, message):
     genres = ", ".join(anime["genres"])
     score = anime["averageScore"]
     description = anime["description"]
-    cover_image = anime["coverImage"]["medium"]
+    cover_image = anime["coverImage"]["large"]
     
     message_text = f"<b>{title}</b>\n"\
                    f"<b>Status:</b> {status}\n"\
@@ -69,9 +69,10 @@ async def anime_info(client, message):
 
  
 
+
 # Command to search for an anime and get its info
 @bot.on_message(filters.command(["search_anime"]))
-async def search_anime(client, message):
+def search_anime(client, message):
     # Get the anime name from the command arguments
     args = message.text.split()
     if len(args) < 2:
@@ -97,7 +98,7 @@ async def search_anime(client, message):
             averageScore
             description
             coverImage {
-                medium
+                large
             }
         }
     }
@@ -113,11 +114,12 @@ async def search_anime(client, message):
     
     # Parse the API response and format the message
     data = response.json()["data"]
-    if not data["Media"]:
+    media_list = data.get("Media")
+    if not media_list:
         message.reply_text(f"No anime found with the name '{anime_name}'.")
         return
     
-    anime = data["Media"][0]
+    anime = media_list[0]
     title = anime["title"]["english"] or anime["title"]["romaji"]
     anime_id = anime["id"]
     status = anime["status"]
@@ -127,7 +129,7 @@ async def search_anime(client, message):
     genres = ", ".join(anime["genres"])
     score = anime["averageScore"]
     description = anime["description"]
-    cover_image = anime["coverImage"]["medium"]
+    cover_image = anime["coverImage"]["large"]
     
     message_text = f"<b>{title}</b>\n"\
                    f"<b>AniList ID:</b> {anime_id}\n"\
@@ -140,8 +142,4 @@ async def search_anime(client, message):
                    f"<b>Description:</b> {description}\n"\
                    f"<b>Cover Image:</b> {cover_image}"
     
-    await message.reply_text(message_text)
-
-
-
-
+    message.reply_text(message_text)
