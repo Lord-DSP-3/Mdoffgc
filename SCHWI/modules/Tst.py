@@ -1,79 +1,54 @@
-from SCHWI import app as Bot
+import requests
 from pyrogram import Client, filters
-import pymongo, os
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from SCHWI import app
 
+# Define the /anime command
+@app.on_message(filters.command("anime"))
+def anime_search(client, message):
 
-ADMINS = 1497264683
-
-#SUB_ANIME_DB = "mongodb+srv://lejah82077:7hDBz80lC4sKb7EN@cluster0.jo83ynu.mongodb.net/?retryWrites=true&w=majority"
-SUB_ANIME_DB = "mongodb+srv://tasesey566:r7bEdOZnnE2lgL7H@cluster0.i17yfwi.mongodb.net/?retryWrites=true&w=majority"
-PUBLIC_C_url = "https://t.me/HORNYSOCIETY18"
-The_Other_Channel = "https://t.me/HORNYSOCIETY18"
-
-dbclient1 = pymongo.MongoClient(SUB_ANIME_DB)
-database1 = dbclient1["SUB_ANIME"]
-sub_anime = database1['Anime_list']
-
-async def present_sub_anime(anime_id : int):
-    found = sub_anime.find_one({'_id': anime_id})
-    return bool(found)
-
-async def add_sub_anime(anime_id: int, link: str):
-    sub_anime.insert_one({'_id': anime_id, '_link': link})
+    args = message.text.split()
+    if len(args) < 2:
+    await message.reply_text("<b>Please provide an anime name or ID after the command.</b>")
     return
 
-async def full_sub_Animebase():
-    user_docs = sub_anime.find()
-    user_ids = []
-    for doc in user_docs:
-        user_ids.append(doc['_id'])
-        
-    return user_ids
-
-async def del_sub_anime(anime_id: int):
-    sub_anime.delete_one({'_id': anime_id})
-    return
-
-async def get_sub_anime(anime_id : int):
-    found = sub_anime.find_one({'_id': anime_id})
-    dblink = found['_link']
-    return dblink
-
-@Bot.on_message(filters.command("addsub") & filters.user(ADMINS))
-async def add_sub(client, message):
-    if message.reply_to_message:
-        link = message.reply_to_message.text
-        if len(message.command) != 1:
-            text = message.text.split(None, 1)[1]
-            anime_id = int(text) 
-            if not await present_sub_anime(anime_id):
-                try:
-                    await add_sub_anime(anime_id, link)
-                    await message.reply_text(f"<b>ADDED!</b>\n\nID: <b>{anime_id}</b>\nLINK: {link}")
-                except Exception as e:
-                    await message.reply_text(f"An Error Occured//-\n\n{e}")
-            else:
-                dblink = await get_sub_anime(anime_id)
-                await message.reply_text(f"<b>THIS ANIME ALREDY EXIST</b>\n\nID: <b>{anime_id}</b>\n<b>POST LINK:</b> {dblink}")
-        else:
-            await message.reply_text("<b>BISH PROVIDE ANIME ID AFTER COMMAND</b>\nTo Get Anime Id \nUse Command: /anime or /search")
+    arg = args[1]
+    if arg.isdigit():
+        anime_id = int(arg)
     else:
-        await message.reply_text(f"Bish Reply To Post Link From Channel:\n {PUBLIC_C_url}")
-        
-    
-@Bot.on_message(filters.command("delsub") & filters.user(ADMINS))
-async def add_sub(client, message):
-    if len(message.command) != 1:
-        text = message.text.split(None, 1)[1]
-        anime_id = int(text) 
-        if await present_sub_anime(anime_id):
-            try:
-                dblink = await get_sub_anime(anime_id)
-                await del_sub_anime(anime_id)
-                await message.reply_text(f"<b>DELETED!</b>\n\nID: <b>{anime_id}</b>\n<b>POST LINK:</b> {dblink}")
-            except Exception as e:
-                await message.reply_text(f"An Error Occured//-\n\n{e}")
-        else:
-            await message.reply_text(f"No Such Anime Was Inserted In DataBase With ID: {anime_id}")
+        string = arg
+
+    # Set up the query to send to the AniList API
+    search_query = '''
+    query ($search: String) {
+      Media(search: $search, type: ANIME, sort: SEARCH_MATCH) {
+        id
+        title {
+          romaji
+        }
+      }
+    }
+    '''
+
+    # Set up the query variables with the user's search query
+    variables = {
+        'search': query
+    }
+
+    # Send the query to the AniList API and get the response
+    response = requests.post(search_url, json={'query': search_query, 'variables': variables}, headers={'Authorization': f'Bearer {access_token}'})
+
+    # Parse the response and get the top 4 matching anime
+    anime_list = response.json()['data']['Media']['title']
+    anime_results = []
+    for anime in anime_list[:4]:
+        anime_id = response.json()['data']['Media']['id']
+        anime_title = anime['romaji']
+        anime_results.append(f"{anime_title} (ID: {anime_id})")
+
+    # Send the results back to the user
+    if anime_results:
+        reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(f"Watch {anime_results[0]}", url=f"https://anilist.co/anime/{anime_id}")]])
+        message.reply_text(f"Here are the top 4 results for '{query}':\n\n" + "\n".join(anime_results), reply_markup=reply_markup)
     else:
-        await message.reply_text("<b>BISH PROVIDE ANIME ID AFTER COMMAND</b>\nTo Get Anime Id \nUse Command: /anime or /search")
+        message.reply_text("Sorry, no results found for your query.")
