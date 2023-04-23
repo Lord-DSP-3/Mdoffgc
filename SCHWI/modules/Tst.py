@@ -17,8 +17,6 @@ async def search_find_anime_list(anime_name: str):
                         english
                         native
                     }
-                    episodes
-                    duration
                     status
                     bannerImage
                 }
@@ -53,7 +51,24 @@ async def search_find_anime_list(anime_name: str):
     for i, anime in enumerate(anime_list[:4]):
         title = anime["title"]["english"] or anime["title"]["romaji"]
         anime_id = anime["id"]
-        buttons.append([InlineKeyboardButton(f"🖥️ {title}", callback_data=f"Anime_{anime_id}")])
+        status = anime["status"]
+        
+        if status == "FINISHED":
+            status_emoji = "🖥️"
+        elif status == "RELEASING":
+            status_emoji = "🆕"
+        elif status == "NOT_YET_RELEASED":
+            status_emoji = "🔜"
+        elif status == "CANCELLED":
+            status_emoji = "❌"
+        elif status == "HIATUS":
+            status_emoji = "🛑"
+        elif status == "UPCOMING":
+            status_emoji = "🎞️"
+        else:
+            status_emoji = ""
+            
+        buttons.append([InlineKeyboardButton(f"{status_emoji} {title}", callback_data=f"Anime_{anime_id}")])
 
     F_B = InlineKeyboardMarkup(buttons)
     return message_text, banner_image, F_B
