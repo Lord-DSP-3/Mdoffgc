@@ -74,7 +74,7 @@ async def ani(client, message):
     else:
         anime_name = " ".join(args[1:])
         try:
-            message_text, banner_image, F_B = search_find_anime_list(anime_name)
+            message_text, banner_image, F_B = await search_find_anime_list(anime_name)
             await app.send_photo(H, photo=banner_image, caption=message_text, reply_markup=F_B)
         except Exception as e:
             await message.reply_text(e)
