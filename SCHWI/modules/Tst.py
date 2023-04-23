@@ -9,8 +9,8 @@ def anime_search(client, message):
 
     args = message.text.split()
     if len(args) < 2:
-    await message.reply_text("<b>Please provide an anime name or ID after the command.</b>")
-    return
+        await message.reply_text("<b>Please provide an anime name or ID after the command.</b>")
+        return
 
     arg = args[1]
     if arg.isdigit():
