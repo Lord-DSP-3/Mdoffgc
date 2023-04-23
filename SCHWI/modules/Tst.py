@@ -53,9 +53,10 @@ async def search_find_anime_list(anime_name: str):
     for i, anime in enumerate(anime_list[:4]):
         title = anime["title"]["english"] or anime["title"]["romaji"]
         anime_id = anime["id"]
-        buttons.append([InlineKeyboardButton(f"🖥️{title}", callback_data=f"Anime_{anime_id}")])
-        F_B = InlineKeyboardMarkup(buttons)
-        return message_text, banner_image, F_B
+        buttons.append([InlineKeyboardButton(f"🖥️ {title}", callback_data=f"Anime_{anime_id}")])
+
+    F_B = InlineKeyboardMarkup(buttons)
+    return message_text, banner_image, F_B
 
 
 
