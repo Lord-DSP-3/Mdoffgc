@@ -4,7 +4,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from SCHWI import app
 
 
-async def search_find_anime_list(anime_name: str, message):
+async def search_find_anime_list(anime_name: str):
     
     query = '''
         query ($search: String) {
@@ -30,13 +30,13 @@ async def search_find_anime_list(anime_name: str, message):
 
    
     if response.status_code != 200:
-        await message.reply("API ERROR")
+        print("Api Error")
         return 
     
     data = response.json()["data"]
     anime_list = data["Page"]["media"]
     if not anime_list:
-        await message.reply("Not Found")
+        print("Not Found")
         return
 
     banner_image = None
@@ -59,8 +59,8 @@ async def search_find_anime_list(anime_name: str, message):
 
 
 
-@app.on_message(filters.command("anime"))
-async def anime_search(client, message):
+@app.on_message(filters.command("len"))
+async def kkk(client, message):
     H = message.chat.id
     args = message.text.split()
     if len(args) < 2:
