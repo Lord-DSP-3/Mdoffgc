@@ -59,8 +59,8 @@ async def search_find_anime_list(anime_name: str):
 
 
 
-@app.on_message(filters.command("len"))
-async def kkk(client, message):
+@app.on_message(filters.command("anime"))
+async def ani(client, message):
     H = message.chat.id
     args = message.text.split()
     if len(args) < 2:
@@ -72,9 +72,12 @@ async def kkk(client, message):
         anime_id = int(arg)
         await message.reply_text(f"Id: {anime_id}")
     else:
-        anime_name = arg
-        message_text, banner_image, F_B = search_find_anime_list(anime_name, message)
-        await app.send_photo(H, photo=banner_image, caption=message_text, reply_markup=F_B)
+        anime_name = " ".join(args[1:])
+        try:
+            message_text, banner_image, F_B = search_find_anime_list(anime_name)
+            await app.send_photo(H, photo=banner_image, caption=message_text, reply_markup=F_B)
+        except Exception as e:
+            await message.reply_text(e)
 
 
 
@@ -94,8 +97,8 @@ async def kkk(client, message):
 
 
 
-@app.on_message(filters.command("anime"))
-async def anime_search(client, message):
+@app.on_message(filters.command("len"))
+async def ln(client, message):
 
     args = message.text.split()
     if len(args) < 2:
@@ -111,7 +114,7 @@ async def anime_search(client, message):
         await message.reply_text(anime_id)
     else:
         try:
-            anime_name = arg
+            anime_name = " ".join(args[1:])
         except Exception as e:
             await message.reply_text(e)
         await message.reply_text(anime_name)
