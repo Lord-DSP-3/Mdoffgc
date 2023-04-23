@@ -128,7 +128,8 @@ async def ln(client, message):
             anime_id = int(arg)
         except Exception as e:
             await message.reply_text(e)
-        await message.reply_text(anime_id)
+            return
+        await message.reply_text(f'Int: {anime_id}')
     else:
         try:
             anime_name = " ".join(args[1:])
