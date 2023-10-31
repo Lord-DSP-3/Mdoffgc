@@ -52,7 +52,7 @@ async def initiate_bot():
         botname = getme.first_name + " " + getme.last_name
     else:
         botname = getme.first_name
-    app.loop.create_task(handle_redis_messages())
+    app.loop.create_task(handle_redis_messages(app))
 
 
 loop.run_until_complete(initiate_bot())
