@@ -11,7 +11,7 @@ async def InvertMD_edit(bot, chat_id, msg_id):
     await bot.invoke(raw.functions.messages.EditMessage(
         peer=Peer,
         id=msg_id,
-        message=Newmsg,
+        **await pyrogram.utils.parse_text_entities(bot, Newmsg, None, None),
         invert_media=True
     ))
 
