@@ -32,6 +32,7 @@ def parse_com(com, key):
 
 BOT1_TOKEN = "6265979983:AAHh0MVz9qRREziTedjvKUaT7E1DoCT0uGI"
 BOT1_ID = 6265979983
+STRING_1 = "AQC0CDUBYuZ2UedPT061vM1n56QALKuXAV9LsKQMIDm29fwfZ1RZRcJOgl3yH0cA757ZHt6Brj2VCg9M3C0RJkWLoyrEoQfQSqJ44L6rGeVGjrjZCLiMqFDTaBff-RgHFWAM8DDj-n1pW3MfCE-8H27lD3rZeoqahIAjLi4TbafO-YlwzFDbabIEgY64_CYNgO9CFK7JMbNhwJbZhNEXAexqrzhbZnhjyhYGgtVCKbBbma6D82whKQA97-nU0ZgCYV_Y7H-NF21_LFpTaLsJkWikhTDLHSlEwZyqS9Qg73PKdJBpETh_Uecx8SDZox1EIilDTAPEKIiy3LJJn0l8OlHKAAAAAT3iONIA"
 
 app = Client(
     "LVLbot",
@@ -40,9 +41,17 @@ app = Client(
     bot_token=BOT1_TOKEN,
 )
 
+bot = Client(
+    name="userbot1",
+    session_string=STRING_1,
+    api_hash=config.API_HASH,
+    api_id=config.API_ID
+)
+
 async def initiate_bot():
     global botid, botname, botusername
     await app.start()
+    await bot.start()
     getme = await app.get_me()
     botid = getme.id
     botusername = (getme.username).lower()
