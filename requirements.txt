@@ -1,4 +1,4 @@
-pyrogram
+pip install git+https://github.com/KurimuzonAkuma/pyrogram.git@v2.0.106.8
 tgcrypto
 requests
 aiofiles
