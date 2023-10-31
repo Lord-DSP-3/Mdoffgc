@@ -1,23 +1,28 @@
 from pyrogram import filters
 from pyrogram.types import Message
-from SCHWI import app, bot, cmd, botid
+from SCHWI import app, APP
 
-@app.on_message(cmd("pyro") & filters.private)
-async def say(_, message: Message):
-    await message.reply_text(text="WELCOME")
+CHANNEL = -1001839990376
 
-@bot.on_message(
-    filters.group 
-    & filters.user(botid)
-    & filters.text
-)
-async def trace(bot, message: Message):
-    m = message.id
-    c = message.chat.id 
-    await bot.send_message(
-        5912572748, 
-        f"⭐: [`{c}`]   [{m}]"
-    )
+#@app.on_message(filters.channel & filters.incoming & filters.chat(CHANNEL))
+@APP.on_message(filters.channel & filters.incoming & filters.chat(CHANNEL))
+async def trace(_, message: Message):
+    text = message.text
+    try:
+        bot, chat, msg = text.split("=")
+    except:
+        return 
+    if str(bot) == "pub":
+        await app.send_message(
+            5912572748,
+            f"C: {chat}\nM: {msg}"
+        )
+    else:
+        await APP.send_message(
+            5912572748,
+            f"C: {chat}\nM: {msg}"
+        )
+        
 
 
 
