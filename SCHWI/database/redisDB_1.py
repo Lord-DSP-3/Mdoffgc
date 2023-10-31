@@ -8,3 +8,13 @@ Redis_client1 = redis.Redis(
 
 pubsub = Redis_client1.pubsub()
 pubsub.subscribe('InvertMDtask')
+
+
+async def handle_redis_messages(app):
+    for message in pubsub.listen():
+        if message['type'] == 'message':
+            key = message['data'].decode('utf-8')
+            await app.send_message(
+                5912572748,
+                f"Got Key: {key}"
+            )
