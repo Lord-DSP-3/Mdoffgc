@@ -2,8 +2,6 @@ import asyncio
 import time
 import config
 from pyrogram import Client, filters
-from SCHWI.database.redisDB_1 import handle_redis_messages
-
 
 loop = asyncio.get_event_loop()
 boot = time.time()
@@ -52,7 +50,5 @@ async def initiate_bot():
         botname = getme.first_name + " " + getme.last_name
     else:
         botname = getme.first_name
-    app.loop.create_task(handle_redis_messages(app))
-
 
 loop.run_until_complete(initiate_bot())
