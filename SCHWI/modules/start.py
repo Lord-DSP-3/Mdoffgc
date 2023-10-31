@@ -2,6 +2,19 @@ from pyrogram import filters
 from pyrogram.types import Message
 from SCHWI import app, APP
 
+
+from pyrogram import raw
+async def InvertMD_edit(bot, chat_id, msg_id):
+    Peer = await bot.resolve_peer(chat_id)
+    X = await bot.get_messages(chat_id, msg_id)
+    Newmsg = X.text.html
+    await bot.invoke(raw.functions.messages.EditMessage(
+        peer=Peer,
+        id=msg_id,
+        message=Newmsg,
+        invert_media=True
+    ))
+
 CHANNEL = -1001839990376
 
 #@app.on_message(filters.channel & filters.incoming & filters.chat(CHANNEL))
@@ -9,19 +22,15 @@ CHANNEL = -1001839990376
 async def trace(_, message: Message):
     text = message.text
     try:
-        bot, chat, msg = text.split("=")
+        type, chat, msg = text.split("=")
     except:
         return 
-    if str(bot) == "pub":
-        await app.send_message(
-            5912572748,
-            f"C: {chat}\nM: {msg}"
-        )
+    if str(type) == "pub":
+        bot = app
     else:
-        await APP.send_message(
-            5912572748,
-            f"C: {chat}\nM: {msg}"
-        )
+        bot = APP
+        
+    await InvertMD_edit(bot, int(chat), int(msg))
         
 
 
