@@ -4,6 +4,7 @@ from SCHWI import app, APP
 
 
 from pyrogram import raw
+from  pyrogram.utils import parse_text_entities
 async def InvertMD_edit(bot, chat_id, msg_id):
     Peer = await bot.resolve_peer(chat_id)
     X = await bot.get_messages(chat_id, msg_id)
@@ -11,7 +12,7 @@ async def InvertMD_edit(bot, chat_id, msg_id):
     await bot.invoke(raw.functions.messages.EditMessage(
         peer=Peer,
         id=msg_id,
-        **await pyrogram.utils.parse_text_entities(bot, Newmsg, None, None),
+        **await parse_text_entities(bot, Newmsg, None, None),
         invert_media=True
     ))
 
