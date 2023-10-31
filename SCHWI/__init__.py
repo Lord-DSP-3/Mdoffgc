@@ -32,11 +32,14 @@ def parse_com(com, key):
   r = (r.split(" ", 1)[1] if len(r.split()) >= 1 else None)
   return r
 
+BOT1_TOKEN = "6265979983:AAHh0MVz9qRREziTedjvKUaT7E1DoCT0uGI"
+BOT1_ID = 6265979983
+
 app = Client(
     "LVLbot",
     config.API_ID,
     config.API_HASH,
-    bot_token=config.BOT_TOKEN,
+    bot_token=BOT1_TOKEN,
 )
 
 async def initiate_bot():
