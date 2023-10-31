@@ -1,4 +1,4 @@
-pip install git+https://github.com/KurimuzonAkuma/pyrogram.git@v2.0.106.8
+git+https://github.com/KurimuzonAkuma/pyrogram.git@v2.0.106.8
 requests
 aiofiles
 dnspython
