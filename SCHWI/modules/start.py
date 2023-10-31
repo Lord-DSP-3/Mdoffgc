@@ -12,10 +12,10 @@ async def say(_, message: Message):
     & filters.text
     & filters.bot
 )
-async def say(app, message: Message):
+async def trace(bot, message: Message):
        m = message.id
        c = message.chat.id 
-       await app.send_message(
+       await bot.send_message(
               5912572748, 
               f"⭐: [`{c}`]   ({m})"
        )
