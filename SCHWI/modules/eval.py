@@ -11,7 +11,7 @@ from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from SCHWI import app
-OWNER_ID = 5912572748
+from config import ADMINS as OWNER_ID
 
 
 async def aexec(code, client, message):
