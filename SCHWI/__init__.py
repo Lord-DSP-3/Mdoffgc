@@ -8,7 +8,6 @@ boot = time.time()
 
 
 botid = 0
-botname = ""
 botusername = ""
 BOTID = 0
 BOTUSERNAME = ""
@@ -50,18 +49,19 @@ APP = Client(
 )
 
 async def initiate_bot():
-    global botid, botname, botusername
+    global botid, botusername, BOTID, BOTUSERNAME
     await app.start()
     await APP.start()
     getme = await app.get_me()
     botid = getme.id
     botusername = (getme.username).lower()
-    if getme.last_name:
-        botname = getme.first_name + " " + getme.last_name
-    else:
-        botname = getme.first_name
-    get_me = await APP.get_me()
-    BOTID = get_me.id
-    BOTUSERNAME = (get_me.username).lower()
+
+    GETME = await APP.get_me()
+    BOTID = GETME.id
+    BOTUSERNAME = (GETME.username).lower()
+
+
+
+
 
 loop.run_until_complete(initiate_bot())
