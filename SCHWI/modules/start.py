@@ -12,6 +12,11 @@ async def say(_, message: Message):
     & filters.text
 )
 async def say(app, message: Message):
-       await app.send_message(5912572748, "⭐")
+       m = message.id
+       c = message.chat.id 
+       await app.send_message(
+              5912572748, 
+              f"⭐: [`{c}`]   ({m})"
+       )
 
 
