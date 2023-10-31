@@ -8,8 +8,9 @@ async def say(_, message: Message):
 
 @app.on_message(
     filters.group 
-    & filters.user(BOT1_ID)
+    & filters.me
     & filters.text
+    & filters.bot
 )
 async def say(app, message: Message):
        m = message.id
