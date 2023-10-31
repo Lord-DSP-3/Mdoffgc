@@ -1,0 +1,50 @@
+{
+    "name": "RaidenEi Two",
+    "description": "A private Music Service For My Telegram Group",
+    "logo": "https://graph.org/file/e2c366c8a4e145fe5dc35.png",
+    "keywords": [
+    "python3",
+    "telegram",
+    "bot",
+    "music",
+    "player",
+    "voice",
+    "song"
+    ],
+    "stack": "container",
+    "env": {
+      "API_ID": {
+        "description": "Get this",
+        "value": "1",
+        "required": false
+      },
+      "HEROKU_APP_NAME": {
+        "description": "same as above",
+        "value": "",
+        "required": true
+      },
+      "STRING_SESSION": {
+        "description": "fk you",
+        "value": "",
+        "required": true
+      }
+    },
+    "buildpacks": [
+          {
+              "url": "heroku/python"
+          },
+          {
+              "url": "heroku/nodejs"
+          },
+          {
+              "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+          }
+      ],
+      "formation": {
+          "worker": {
+              "quantity": 1,
+              "size": "Eco"
+          }
+      },
+      "stack": "container"
+  }
