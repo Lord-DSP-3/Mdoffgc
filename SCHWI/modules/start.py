@@ -30,8 +30,8 @@ async def trace(_, message: Message):
         bot = app
     else:
         bot = APP
-        
-    await InvertMD_edit(bot, int(chat), int(msg))
+    try: await InvertMD_edit(bot, int(chat), int(msg))
+    except: pass
         
 
 
