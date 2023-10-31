@@ -10,7 +10,7 @@ from time import time
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from SCHWI import app
+from SCHWI import app, APP
 from config import ADMINS as OWNER_ID
 
 
