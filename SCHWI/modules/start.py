@@ -5,6 +5,7 @@ from SCHWI import app, APP
 
 from pyrogram import raw
 from  pyrogram.utils import parse_text_entities
+
 async def InvertMD_edit(bot, chat_id, msg_id):
     Peer = await bot.resolve_peer(chat_id)
     X = await bot.get_messages(chat_id, msg_id)
@@ -18,6 +19,7 @@ async def InvertMD_edit(bot, chat_id, msg_id):
 
 CHANNEL = -1001839990376
 
+
 #@app.on_message(filters.channel & filters.incoming & filters.chat(CHANNEL))
 @APP.on_message(filters.channel & filters.incoming & filters.chat(CHANNEL))
 async def trace(_, message: Message):
@@ -30,8 +32,7 @@ async def trace(_, message: Message):
         bot = app
     else:
         bot = APP
-    try: await InvertMD_edit(bot, int(chat), int(msg))
-    except: pass
+    await InvertMD_edit(bot, int(chat), int(msg))
         
 
 
