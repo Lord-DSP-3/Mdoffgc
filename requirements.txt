@@ -1,8 +1,4 @@
 git+https://github.com/KurimuzonAkuma/pyrogram.git@v2.0.106.8
-requests
-aiofiles
+tgcrypto
 dnspython
-python-dotenv
 pymongo
-aiohttp
-asyncio
