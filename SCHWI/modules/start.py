@@ -1,7 +1,7 @@
 from pyrogram import filters
 from pyrogram.types import Message
 from SCHWI import app, APP
-
+import asyncio
 
 from pyrogram import raw
 from  pyrogram.utils import parse_text_entities
@@ -32,7 +32,13 @@ async def trace(_, message: Message):
         bot = app
     else:
         bot = APP
-    await InvertMD_edit(bot, int(chat), int(msg))
+    await asyncio.sleep(1)
+    try: await InvertMD_edit(bot, int(chat), int(msg))
+    except: pass
+    await asyncio.sleep(4)
+    try: await InvertMD_edit(bot, int(chat), int(msg))
+    except: pass
+        
         
 
 
