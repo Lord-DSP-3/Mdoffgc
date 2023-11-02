@@ -28,16 +28,22 @@ async def trace(_, message: Message):
         type, chat, msg = text.split("=")
     except:
         return 
+    ATMP = False
     if str(type) == "pub":
         bot = app
     else:
         bot = APP
     await asyncio.sleep(1)
-    try: await InvertMD_edit(bot, int(chat), int(msg))
-    except: pass
-    await asyncio.sleep(4)
-    try: await InvertMD_edit(bot, int(chat), int(msg))
-    except: pass
+    try: 
+        await InvertMD_edit(bot, int(chat), int(msg))
+        ATMP = True
+    except:
+        pass
+    if ATMP is False:
+        await asyncio.sleep(4)
+        try: 
+            await InvertMD_edit(bot, int(chat), int(msg))
+        except: pass
         
         
 
