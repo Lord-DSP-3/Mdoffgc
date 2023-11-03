@@ -14,6 +14,7 @@ async def InvertMD_edit(bot, chat_id, msg_id):
         peer=Peer,
         id=msg_id,
         **await parse_text_entities(bot, Newmsg, None, None),
+        reply_markup=X.reply_markup,
         invert_media=True
     ))
 
