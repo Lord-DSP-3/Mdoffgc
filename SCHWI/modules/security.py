@@ -1,4 +1,4 @@
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import (
 Message,
 CallbackQuery,
@@ -44,7 +44,7 @@ MAGREE = """
 """
 
 @app.on_callback_query(callback_filter('SRinfo'))
-async def Admaction_callback_5(app: app, query: CallbackQuery):
+async def Admaction_callback_5(app: Client, query: CallbackQuery):
     Data = query.data.split(":")[1]
     Update = query.message
     UID = query.from_user.id
@@ -84,7 +84,7 @@ async def Admaction_callback_5(app: app, query: CallbackQuery):
 MUTE_IDS = []
 
 @app.on_message(filters.new_chat_members & filters.chat(GROUP))
-async def welcome_sec1(app, message: Message): 
+async def welcome_sec1(app: Client, message: Message): 
     try:
         for member in message.new_chat_members:
             RESTRICTED = await message.chat.restrict_member(
