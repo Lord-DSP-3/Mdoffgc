@@ -6,7 +6,7 @@ ChatPermissions,
 InlineKeyboardButton, 
 InlineKeyboardMarkup
 )
-from SCHWI import APP
+from SCHWI import app, APP
 import asyncio
 from HELPER import callback_filter, handle_exception
 
@@ -41,8 +41,8 @@ MAGREE = """
 𝗧𝗵𝗮𝗻𝗸 𝘆𝗼𝘂 𝗳𝗼𝗿 𝘆𝗼𝘂𝗿 𝘂𝗻𝗱𝗲𝗿𝘀𝘁𝗮𝗻𝗱𝗶𝗻𝗴. <blockquote><b>If you have any questions or need assistance, feel free to ask. Welcome and enjoy your time in our group.</b></blockquote>
 """
 
-@APP.on_callback_query(callback_filter('SRinfo'))
-async def Admaction_callback_5(APP: APP, query: CallbackQuery):
+@app.on_callback_query(callback_filter('SRinfo'))
+async def Admaction_callback_5(app: app, query: CallbackQuery):
     Data = query.data.split(":")[1]
     Update = query.message
     UID = query.from_user.id
@@ -80,8 +80,8 @@ async def Admaction_callback_5(APP: APP, query: CallbackQuery):
         return await Update.edit(f"👤 {Username} [`{OUID}`]\n{MAGREE}", reply_markup=onvkeyar)
 
 
-@APP.on_message(filters.new_chat_members)
-async def welcome_sec1(APP, message: Message):
+@app.on_message(filters.new_chat_members)
+async def welcome_sec1(app, message: Message):
     if message.chat.id in GROUP: return 
     try:
         for member in message.new_chat_members:
@@ -110,7 +110,8 @@ async def welcome_sec1(APP, message: Message):
                 ]
             )
             if RESTRICTED:
-                await APP.send_photo(
+                await app.send_photo(
+                    message.chat.id,
                     photo=SPIC,
                     caption=SCAP.format(Username, member.id),
                     reply_markup=invkeyar
