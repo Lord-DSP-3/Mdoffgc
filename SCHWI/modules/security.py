@@ -19,7 +19,18 @@ __please read__/rules __and you will get unrestricted within few weeks.__
 """
 NNM_EXT = ""
 NFY_TX = "This Is Not For You, Let The New Member Agree To Terms & Condition"
-SCAP_E2 = ""
+SCAP_E2 = """
+<u>𝗔𝗻𝗶𝗺𝗲 𝗖𝗵𝗮𝘁 𝗖𝗼𝗺𝗺𝘂𝗻𝗶𝘁𝘆 𝗦𝗲𝗰𝘂𝗿𝗶𝘁𝘆 𝗦𝘆𝘀𝘁𝗲𝗺</u>
+__To ensure a safe and enjoyable environment for all members, we've implemented some security measures. Which involves temporarily restricting media permissions for newer members.__
+**__This action is taken to prevent spammers and the sharing of inappropriate or harmful content in group.__**
+
+To regain your media permissions:
+<blockquote>You have to be part of group for atleast 30 Days.</blockquote>
+<blockquote>You must be active and sent atleast 100 meaningful messages.</blockquote>
+
+This ensures that you're actively contributing to our community and understand our guidelines.
+Once you meet these requirements, feel free to remind Admins, and we'll promptly unrestrict your media permissions. Thank you for your understanding and cooperation. If you have any questions or concerns, don't hesitate to ask. Welcome to the group!
+"""
 MAGREE = ""
 
 @Bot.on_callback_query(callback_filter('SRinfo'))
