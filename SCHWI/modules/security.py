@@ -113,16 +113,18 @@ async def welcome_sec1(app: Client, message: Message):
                     ]
                 ]
             )
+            
             if RESTRICTED:
+                await app.send_message(
+                    chat_id=-1001649033559,
+                    text=f"🔷 #TEMP_MUTE\n» user: {Username} [`{member.id}`]\n»group: {message.chat.title}\n#id{member.id}"
+                )
+                await asyncio.sleep(6)
                 await app.send_photo(
                     chat_id=message.chat.id,
                     photo=SPIC[0],
                     caption=SCAP.format(Username, member.id),
                     reply_markup=invkeyar
-                )
-                await app.send_message(
-                    chat_id=-1001649033559,
-                    text=f"🔷 #TEMP_MUTE\n» user: {Username} [`{member.id}`]\n»group: {message.chat.title}\n#id{member.id}"
                 )
                 MUTE_IDS.append(member.id)
     except Exception: return await handle_exception(app)
