@@ -80,8 +80,9 @@ async def Admaction_callback_5(APP: APP, query: CallbackQuery):
         return await Update.edit(f"👤 {Username} [`{OUID}`]\n{MAGREE}", reply_markup=onvkeyar)
 
 
-@APP.on_message(filters.new_chat_members & filters.chat(GROUP))
+@APP.on_message(filters.new_chat_members)
 async def welcome_sec1(APP, message: Message):
+    if message.chat.id in GROUP: return 
     try:
         for member in message.new_chat_members:
             RESTRICTED = await message.chat.restrict_member(
