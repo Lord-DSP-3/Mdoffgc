@@ -10,7 +10,7 @@ from SCHWI import APP
 import asyncio
 from HELPER import callback_filter, handle_exception
 
-GROUP = -1001525634215
+GROUP = [-1001525634215, -1001986530465]
 SPIC = "https://graph.org/file/3ad7a84ee06897b580ced.jpg"
 SCAP = """
 __Welcome!__ {} [`{}`] 
@@ -41,7 +41,7 @@ MAGREE = """
 𝗧𝗵𝗮𝗻𝗸 𝘆𝗼𝘂 𝗳𝗼𝗿 𝘆𝗼𝘂𝗿 𝘂𝗻𝗱𝗲𝗿𝘀𝘁𝗮𝗻𝗱𝗶𝗻𝗴. <blockquote><b>If you have any questions or need assistance, feel free to ask. Welcome and enjoy your time in our group.</b></blockquote>
 """
 
-@Bot.on_callback_query(callback_filter('SRinfo'))
+@APP.on_callback_query(callback_filter('SRinfo'))
 async def Admaction_callback_5(APP: APP, query: CallbackQuery):
     Data = query.data.split(":")[1]
     Update = query.message
