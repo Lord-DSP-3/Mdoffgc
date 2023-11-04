@@ -14,8 +14,8 @@ GROUP = -1001525634215
 SPIC = "https://graph.org/file/3ad7a84ee06897b580ced.jpg"
 SCAP = """
 __Welcome!__ {} [`{}`] 
-**__Your media permissions have been temporarily restricted for security reasons.__**
-__please read__/rules __and you will get unrestricted within few weeks.__
+
+**__Your media permissions have been temporarily restricted for security reasons.__** <blockquote>__please read__ /details  and  /rules __and you will get unrestricted within few weeks.__</blockquote>
 """
 
 NNM_EXT = "This action is taken to prevent spammers and the sharing of inappropriate or harmful content. We believe that everyone should have a positive experience here, and these restrictions help us achieve that goal."
