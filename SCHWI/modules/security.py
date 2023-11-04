@@ -48,38 +48,29 @@ async def Admaction_callback_5(app: Client, query: CallbackQuery):
     Data = query.data.split(":")[1]
     Update = query.message
     UID = query.from_user.id
-    if Data.startswith("Explain$"):
-        ouid = Data.split("$")[-1]
-        OUID = int(ouid)
-        if OUID != UID:
-            try: await query.answer(NNM_EXT, show_alert=True)
-            except: await query.answer(NNM_EXT, show_alert=True)
-            return
-        onvkeyar = InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton(text="READ COMPLETE RULES", url="https://telegra.ph/Anime-Chat-English--UCO-06-17"),
-                ]
-            ]
-        )
-        Username = f"@{query.from_user.username}" if query.from_user.username else f"{query.from_user.mention}"
-        return await Update.edit(f"👤 {Username} [`{OUID}`]\n{SCAP_E2}", reply_markup=onvkeyar)
-    elif Data.startswith("TCA$"):
-        ouid = Data.split("$")[-1]
-        OUID = int(ouid)
-        if OUID != UID:
-            try: await query.answer(NFY_TX, show_alert=True)
-            except: await query.answer(NFY_TX, show_alert=True)
-            return
-        onvkeyar = InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton(text="DETAILS ℹ️", callback_data=f"SRinfo:Explain${OUID}"),
-                ],
-            ]
-        )
-        Username = f"@{query.from_user.username}" if query.from_user.username else f"{query.from_user.mention}"
-        return await Update.edit(f"👤 {Username} [`{OUID}`]\n{MAGREE}", reply_markup=onvkeyar)
+    try:
+        if Data.startswith("Explain$"):
+            ouid = Data.split("$")[-1]
+            OUID = int(ouid)
+            if OUID != UID:
+                try: await query.answer(NNM_EXT, show_alert=True)
+                except: await query.answer(NNM_EXT, show_alert=True)
+                return
+            onvkeyar = InlineKeyboardMarkup([[InlineKeyboardButton(text="READ COMPLETE RULES", url="https://telegra.ph/Anime-Chat-English--UCO-06-17"),]])
+            Username = f"@{query.from_user.username}" if query.from_user.username else f"{query.from_user.mention}"
+            await Update.edit(f"👤 {Username} [`{OUID}`]\n{SCAP_E2}", reply_markup=onvkeyar)
+        elif Data.startswith("TCA$"):
+            ouid = Data.split("$")[-1]
+            OUID = int(ouid)
+            if OUID != UID:
+                try: await query.answer(NFY_TX, show_alert=True)
+                except: await query.answer(NFY_TX, show_alert=True)
+                return
+            onvkeyar = InlineKeyboardMarkup([[InlineKeyboardButton(text="DETAILS ℹ️", callback_data=f"SRinfo:Explain${OUID}"),],])
+            Username = f"@{query.from_user.username}" if query.from_user.username else f"{query.from_user.mention}"
+            await Update.edit(f"👤 {Username} [`{OUID}`]\n{MAGREE}", reply_markup=onvkeyar)
+    except Exception: return await handle_exception(app)
+
 
 MUTE_IDS = []
 
