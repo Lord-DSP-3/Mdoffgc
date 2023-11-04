@@ -62,7 +62,7 @@ async def Admaction_callback_5(app: Client, query: CallbackQuery):
                 ]
             ]
         )
-        Username = f"@{query.from_user.username}" if query.from_user.username else f"@{query.from_user.mention}"
+        Username = f"@{query.from_user.username}" if query.from_user.username else f"{query.from_user.mention}"
         return await Update.edit(f"👤 {Username} [`{OUID}`]\n{SCAP_E2}", reply_markup=onvkeyar)
     elif Data.startswith("TCA$"):
         ouid = Data.split("$")[-1]
@@ -78,7 +78,7 @@ async def Admaction_callback_5(app: Client, query: CallbackQuery):
                 ],
             ]
         )
-        Username = f"@{query.from_user.username}" if query.from_user.username else f"@{query.from_user.mention}"
+        Username = f"@{query.from_user.username}" if query.from_user.username else f"{query.from_user.mention}"
         return await Update.edit(f"👤 {Username} [`{OUID}`]\n{MAGREE}", reply_markup=onvkeyar)
 
 MUTE_IDS = []
@@ -102,7 +102,7 @@ async def welcome_sec1(app: Client, message: Message):
                     can_pin_messages=False,
                 ),
             )
-            Username = f"@{member.username}" if member.username else f"@{member.mention}"
+            Username = f"@{member.username}" if member.username else f"{member.mention}"
             invkeyar = InlineKeyboardMarkup(
                 [
                     [
