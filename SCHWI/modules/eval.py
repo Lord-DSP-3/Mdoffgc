@@ -11,16 +11,15 @@ from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from SCHWI import app
-from SCHWI import APP as app2
 from config import ADMINS as OWNER_ID
 
 
-async def aexec(code, client, message, app2):
+async def aexec(code, client, message):
     exec(
-        "async def __aexec(client, message, app2): "
+        "async def __aexec(client, message): "
         + "".join(f"\n {a}" for a in code.split("\n"))
     )
-    return await locals()["__aexec"](client, message, app2)
+    return await locals()["__aexec"](client, message)
 
 
 async def edit_or_reply(msg: Message, **kwargs):
@@ -31,8 +30,6 @@ async def edit_or_reply(msg: Message, **kwargs):
 
 @app.on_edited_message(filters.command("run") & filters.user(OWNER_ID) & ~filters.via_bot)
 @app.on_message(filters.command("run") & filters.user(OWNER_ID) & ~filters.via_bot)
-@app2.on_edited_message(filters.command("run") & filters.user(OWNER_ID) & ~filters.via_bot)
-@app2.on_message(filters.command("run") & filters.user(OWNER_ID) & ~filters.via_bot)
 async def executor(client: app, message: Message):
     if len(message.command) < 2:
         return await edit_or_reply(message, text="<b>ᴡʜᴀᴛ ʏᴏᴜ ᴡᴀɴɴᴀ ᴇxᴇᴄᴜᴛᴇ ?</b>")
@@ -47,7 +44,7 @@ async def executor(client: app, message: Message):
     redirected_error = sys.stderr = StringIO()
     stdout, stderr, exc = None, None, None
     try:
-        await aexec(cmd, client, message, app2)
+        await aexec(cmd, client, message)
     except Exception:
         exc = traceback.format_exc()
     stdout = redirected_output.getvalue()
