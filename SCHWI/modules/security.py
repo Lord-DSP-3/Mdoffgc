@@ -28,8 +28,10 @@ To regain your media permissions:
 <blockquote>You have to be part of group for atleast 30 Days.</blockquote>
 <blockquote>You must be active and sent atleast 100 meaningful messages.</blockquote>
 
-This ensures that you're actively contributing to our community and understand our guidelines.
-Once you meet these requirements, feel free to remind Admins, and we'll promptly unrestrict your media permissions. Thank you for your understanding and cooperation. If you have any questions or concerns, don't hesitate to ask. Welcome to the group!
+```python
+This ensures that you understand our guidelines and actively contributing to our community.
+'Once you meet these requirements, feel free to remind Admins, and we‘ll promptly unrestrict your media permissions. Thank you for your understanding and cooperation. If you have any questions or concerns, don’t hesitate to ask. Welcome to the group!'
+```
 """
 MAGREE = ""
 
