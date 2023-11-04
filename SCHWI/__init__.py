@@ -59,7 +59,8 @@ async def initiate_bot():
     GETME = await APP.get_me()
     BOTID = GETME.id
     BOTUSERNAME = (GETME.username).lower()
-
+    await APP.send_message(-1001986530465, "__BOT STARTED__ ✅")
+    await app.send_message(-1001986530465, "__BOT STARTED__ ✅")
 
 
 
