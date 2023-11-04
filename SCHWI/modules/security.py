@@ -17,8 +17,11 @@ __Welcome!__ {} [`{}`]
 **__Your media permissions have been temporarily restricted for security reasons.__**
 __please read__/rules __and you will get unrestricted within few weeks.__
 """
-NNM_EXT = ""
+
+NNM_EXT = "This action is taken to prevent spammers and the sharing of inappropriate or harmful content. We believe that everyone should have a positive experience here, and these restrictions help us achieve that goal."
+
 NFY_TX = "This Is Not For You, Let The New Member Agree To Terms & Condition"
+
 SCAP_E2 = """
 <u>𝗔𝗻𝗶𝗺𝗲 𝗖𝗵𝗮𝘁 𝗖𝗼𝗺𝗺𝘂𝗻𝗶𝘁𝘆 𝗦𝗲𝗰𝘂𝗿𝗶𝘁𝘆 𝗦𝘆𝘀𝘁𝗲𝗺</u>
 __To ensure a safe and enjoyable environment for all members, we've implemented some security measures. Which involves temporarily restricting media permissions for newer members.__
@@ -33,7 +36,10 @@ This ensures that you understand our guidelines and actively contributing to our
 'Once you meet these requirements, feel free to remind Admins, and we‘ll promptly unrestrict your media permissions. Thank you for your understanding and cooperation. If you have any questions or concerns, don’t hesitate to ask. Welcome to the group!'
 ```
 """
-MAGREE = ""
+
+MAGREE = """
+𝗧𝗵𝗮𝗻𝗸 𝘆𝗼𝘂 𝗳𝗼𝗿 𝘆𝗼𝘂𝗿 𝘂𝗻𝗱𝗲𝗿𝘀𝘁𝗮𝗻𝗱𝗶𝗻𝗴. <blockquote><b>If you have any questions or need assistance, feel free to ask. Welcome and enjoy your time in our group.</b></blockquote>
+"""
 
 @Bot.on_callback_query(callback_filter('SRinfo'))
 async def Admaction_callback_5(APP: APP, query: CallbackQuery):
@@ -44,13 +50,13 @@ async def Admaction_callback_5(APP: APP, query: CallbackQuery):
         ouid = Data.split("$")[-1]
         OUID = int(ouid)
         if OUID != UID:
-            try: await query.answer(NFY_TX, show_alert=True)
-            except: await query.answer(NFY_TX, show_alert=True)
+            try: await query.answer(NNM_EXT, show_alert=True)
+            except: await query.answer(NNM_EXT, show_alert=True)
             return
         onvkeyar = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(text="Understood, I Agree ✅", callback_data=f"SRinfo:TCA${OUID}"),
+                    InlineKeyboardButton(text="READ COMPLETE RULES", url="https://telegra.ph/Anime-Chat-English--UCO-06-17"),
                 ]
             ]
         )
@@ -60,8 +66,8 @@ async def Admaction_callback_5(APP: APP, query: CallbackQuery):
         ouid = Data.split("$")[-1]
         OUID = int(ouid)
         if OUID != UID:
-            try: await query.answer(NNM_EXT, show_alert=True)
-            except: await query.answer(NNM_EXT, show_alert=True)
+            try: await query.answer(NFY_TX, show_alert=True)
+            except: await query.answer(NFY_TX, show_alert=True)
             return
         onvkeyar = InlineKeyboardMarkup(
             [
