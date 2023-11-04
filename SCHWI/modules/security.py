@@ -20,7 +20,7 @@ __Welcome!__ {} [`{}`]
 **__Your media permissions have been temporarily restricted for security reasons.__** <blockquote>__please read__ /details  and  /rules __and you will get unrestricted within few weeks.__</blockquote>
 """
 
-NNM_EXT = "This action is taken to prevent spammers and the sharing of inappropriate or harmful content. We believe that everyone should have a positive experience here, and these restrictions help us achieve that goal."
+NNM_EXT = "This action is taken to prevent spammers and the sharing of inappropriate or harmful content."
 
 NFY_TX = "This Is Not For You, Let The New Member Agree To Terms & Condition"
 
