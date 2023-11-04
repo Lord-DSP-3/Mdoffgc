@@ -11,7 +11,9 @@ import asyncio
 from HELPER import callback_filter, handle_exception
 
 GROUP = -1001525634215
-SPIC = "https://graph.org/file/3ad7a84ee06897b580ced.jpg"
+SPIC = [
+    "https://graph.org/file/3ad7a84ee06897b580ced.jpg"
+]
 SCAP = """
 __Welcome!__ {} [`{}`] 
 
@@ -113,7 +115,7 @@ async def welcome_sec1(app, message: Message):
             if RESTRICTED:
                 await app.send_photo(
                     chat_id=message.chat.id,
-                    photo=SPIC,
+                    photo=SPIC[0],
                     caption=SCAP.format(Username, member.id),
                     reply_markup=invkeyar
                 )
