@@ -116,5 +116,4 @@ async def welcome_sec1(app, message: Message):
                     caption=SCAP.format(Username, member.id),
                     reply_markup=invkeyar
                 )
-    except Exception:
-        await handle_exception(APP)
+    except Exception: return await handle_exception(app)
