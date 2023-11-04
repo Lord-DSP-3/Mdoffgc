@@ -28,7 +28,7 @@ def parse_com(com, key):
   r = (r.split(" ", 1)[1] if len(r.split()) >= 1 else None)
   return r
 
-BOT1_TOKEN = "6471607982:AAG-5Ot2ryyJSuaiqJ9EvtnMYB8lk6FYzrU"
+BOT1_TOKEN = "5416543505:AAH39KDy5ZASEtJlrEVaZG7QG5GYy7enV74"
 
 app = Client(
     "LVLbot1",
