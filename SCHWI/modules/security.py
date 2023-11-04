@@ -6,7 +6,7 @@ ChatPermissions,
 InlineKeyboardButton, 
 InlineKeyboardMarkup
 )
-from SCHWI import app, APP
+from SCHWI import app
 import asyncio
 from HELPER import callback_filter, handle_exception
 
