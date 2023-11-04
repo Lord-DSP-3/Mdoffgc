@@ -83,7 +83,7 @@ async def Admaction_callback_5(app: Client, query: CallbackQuery):
 
 MUTE_IDS = []
 
-@app.on_chat_member_updated(filters.new_chat_members & filters.chat(GROUP), group=2)
+@app.on_chat_member_updated(filters.new_chat_members & filters.chat(GROUP))
 async def welcome_sec1(app: Client, message: Message): 
     try:
         for member in message.new_chat_members:
