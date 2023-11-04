@@ -10,7 +10,7 @@ from SCHWI import app, APP
 import asyncio
 from HELPER import callback_filter, handle_exception
 
-GROUP = [-1001525634215, -1001986530465]
+GROUP = -1001525634215
 SPIC = "https://graph.org/file/3ad7a84ee06897b580ced.jpg"
 SCAP = """
 __Welcome!__ {} [`{}`] 
@@ -79,6 +79,7 @@ async def Admaction_callback_5(app: app, query: CallbackQuery):
         Username = f"@{query.from_user.username}" if query.from_user.username else f"@{query.from_user.mention}"
         return await Update.edit(f"👤 {Username} [`{OUID}`]\n{MAGREE}", reply_markup=onvkeyar)
 
+MUTE_IDS = []
 
 @app.on_message(filters.new_chat_members)
 async def welcome_sec1(app, message: Message):
@@ -120,4 +121,5 @@ async def welcome_sec1(app, message: Message):
                     chat_id=-1001649033559,
                     text=f"🔷 #TEMP_MUTE\n» user: {Username} [`{member.id}`]\n»group: {message.chat.title}\n#id{member.id}"
                 )
+                MUTE_IDS.append(member.id)
     except Exception: return await handle_exception(app)
