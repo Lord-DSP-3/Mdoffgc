@@ -83,10 +83,12 @@ async def Admaction_callback_5(app: Client, query: CallbackQuery):
 
 MUTE_IDS = []
 
-@app.on_chat_member_updated(filters.new_chat_members & filters.chat(GROUP))
+@app.on_chat_member_updated(filters.chat(GROUP))
 async def welcome_sec1(app: Client, message: Message): 
     try:
-        for member in message.new_chat_members:
+        if message.old_chat_member: return
+        member = message.new_chat_member.user
+        if member:
             RESTRICTED = await message.chat.restrict_member(
                 user_id=member.id,
                 permissions=ChatPermissions(
