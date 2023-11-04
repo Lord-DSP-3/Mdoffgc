@@ -12,13 +12,15 @@ from HELPER import callback_filter, handle_exception
 
 GROUP = -1001525634215
 SPIC = "https://graph.org/file/3ad7a84ee06897b580ced.jpg"
-SCAP_2 = """
+SCAP = """
 __Welcome!__ {} [`{}`] 
 **__Your media permissions have been temporarily restricted for security reasons.__**
 __please read__/rules __and you will get unrestricted within few weeks.__
 """
 NNM_EXT = ""
 NFY_TX = "This Is Not For You, Let The New Member Agree To Terms & Condition"
+SCAP_E2 = ""
+MAGREE = ""
 
 @Bot.on_callback_query(callback_filter('SRinfo'))
 async def Admaction_callback_5(APP: APP, query: CallbackQuery):
@@ -39,6 +41,8 @@ async def Admaction_callback_5(APP: APP, query: CallbackQuery):
                 ]
             ]
         )
+        Username = f"@{query.from_user.username}" if query.from_user.username else f"@{query.from_user.mention}"
+        return await Update.edit(f"👤 {Username} [`{OUID}`]\n{SCAP_E2}", reply_markup=onvkeyar)
     elif Data.startswith("TCA$"):
         ouid = Data.split("$")[-1]
         OUID = int(ouid)
@@ -53,6 +57,9 @@ async def Admaction_callback_5(APP: APP, query: CallbackQuery):
                 ],
             ]
         )
+        Username = f"@{query.from_user.username}" if query.from_user.username else f"@{query.from_user.mention}"
+        return await Update.edit(f"👤 {Username} [`{OUID}`]\n{MAGREE}", reply_markup=onvkeyar)
+
 
 @APP.on_message(filters.new_chat_members & filters.chat(GROUP))
 async def welcome_sec1(APP, message: Message):
