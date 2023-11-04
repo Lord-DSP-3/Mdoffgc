@@ -1,5 +1,10 @@
 from pyrogram import filters
-from pyrogram.types import Message, ChatPermissions
+from pyrogram.types import (
+Message,
+ChatPermissions,
+InlineKeyboardButton, 
+InlineKeyboardMarkup
+)
 from SCHWI import APP
 import asyncio
 
@@ -10,6 +15,8 @@ __Welcome!__ {} [`{}`]
 **__Your media permissions have been temporarily restricted for security reasons.__**
 __please read__/rules __and you will get unrestricted within few weeks.__
 """
+
+
 
 @APP.on_message(filters.new_chat_members & filters.chat(GROUP))
 async def welcome_sec1(APP, message: Message):
@@ -29,9 +36,19 @@ async def welcome_sec1(APP, message: Message):
                 ),
             )
             Username = f"@{member.username}" if member.username else f"@{member.mention}"
+            invkeyar = InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton(text="DETAILS ℹ️", callback_data="close"),
+                    ],
+                    [
+                        InlineKeyboardButton(text="Understood, I Agree ✅", callback_data="close"),
+                    ]
+                ]
+            )
             if RESTRICTED:
                 await APP.send_photo(
                     photo=SPIC,
                     caption=SCAP.format(Username, member.id),
-                    reply_markup=None
+                    reply_markup=invkeyar
                 )
