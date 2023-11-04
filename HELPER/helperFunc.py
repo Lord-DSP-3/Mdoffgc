@@ -1,5 +1,4 @@
 from pyrogram import filters
-from typing import Union
 
 def callback_filter(data):
     return filters.create(
