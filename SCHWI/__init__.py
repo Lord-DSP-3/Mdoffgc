@@ -28,10 +28,10 @@ def parse_com(com, key):
   r = (r.split(" ", 1)[1] if len(r.split()) >= 1 else None)
   return r
 
-BOT1_TOKEN = "5416543505:AAH39KDy5ZASEtJlrEVaZG7QG5GYy7enV74"
+BOT1_TOKEN = "5721709783:AAHWao6d-4QYWBRzRpohYzHh6USUe9BWhrE"
 
 app = Client(
-    "LVLbot1",
+    "SecuritBot",
     config.API_ID,
     config.API_HASH,
     bot_token=BOT1_TOKEN,
