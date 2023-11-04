@@ -4,6 +4,13 @@ from SCHWI import APP
 import asyncio
 
 GROUP = -1001525634215
+SPIC = "https://graph.org/file/3ad7a84ee06897b580ced.jpg"
+SCAP_2 = """
+__Welcome!__ {} [`{}`] 
+**__Your media permissions have been temporarily restricted for security reasons.__**
+__please read__/rules __and you will get unrestricted within few weeks.__
+"""
+
 @APP.on_message(filters.new_chat_members & filters.chat(GROUP))
 async def welcome_sec1(APP, message: Message):
     try:
@@ -21,9 +28,10 @@ async def welcome_sec1(APP, message: Message):
                     can_pin_messages=False,
                 ),
             )
+            Username = f"@{member.username}" if member.username else f"@{member.mention}"
             if RESTRICTED:
                 await APP.send_photo(
                     photo=SPIC,
-                    caption=SCAP,
+                    caption=SCAP.format(Username, member.id),
                     reply_markup=None
                 )
