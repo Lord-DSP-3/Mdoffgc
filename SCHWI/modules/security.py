@@ -183,7 +183,7 @@ async def resusermsgcount(client: app, message: Message):
 async def messagecount(client: app, message: Message):
     try:
         member = message.from_user
-        if not await present_user(member.id): 
+        if await present_user(member.id): 
             if len(message.text) >= 70:
                 await add_ruser_msg(member.id)
         return 
