@@ -25,8 +25,7 @@ async def full_userbase():
     return user_ids
 
 async def del_user(user_id: int):
-    if await present_user(user_id):
-        user_data.delete_one({'_id': int(user_id)})
+    user_data.delete_one({'_id': int(user_id)})
     return
 
 async def add_ruser_msg(user_id: int):
@@ -34,3 +33,9 @@ async def add_ruser_msg(user_id: int):
         {'_id': int(user_id)},
         {'$inc': {'msg': 1}}
     )
+
+async def get_user(user_id: int):
+    Doc = user_data.find_one({'_id': int(user_id)})
+    return Doc['msg']
+
+
