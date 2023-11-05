@@ -156,3 +156,15 @@ async def Stickersecmsg(client: app, message: Message):
         reply_markup=invkeyar,
         reply_to_message_id=MId
     )
+
+
+@app.on_message(filters.text & filters.group & filters.chat(GROUP), group=3)
+async def messagecount(client: app, message: Message):
+    member = message.from_user
+    if not await present_user(member.id):
+        return 
+    if len(message.text) <= 30:
+        return
+    
+
+
