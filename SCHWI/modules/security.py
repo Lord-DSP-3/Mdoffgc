@@ -9,6 +9,9 @@ InlineKeyboardMarkup
 from SCHWI import app, cmd
 import asyncio
 from HELPER import callback_filter, handle_exception
+from SCHWI.database.Database import present_user, add_user
+
+
 
 GROUP = -1001525634215
 SPIC = [
@@ -81,8 +84,6 @@ async def Admaction_callback_5(app: Client, query: CallbackQuery):
     except Exception: return await handle_exception(app)
 
 
-MUTE_IDS = []
-
 @app.on_chat_member_updated(filters.chat(GROUP))
 async def welcome_sec1(app: Client, message: Message): 
     try:
@@ -126,7 +127,8 @@ async def welcome_sec1(app: Client, message: Message):
                     caption=SCAP.format(Username, member.id),
                     reply_markup=invkeyar
                 )
-                MUTE_IDS.append(member.id)
+                if not await present_user(member.id):
+                    await add_user(member.id)
     except Exception: return await handle_exception(app)
 
 
