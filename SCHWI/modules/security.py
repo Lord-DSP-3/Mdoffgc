@@ -185,9 +185,8 @@ async def messagecount(client: app, message: Message):
         member = message.from_user
         if not await present_user(member.id):
             return 
-        if len(message.text) <= 70:
-            return
-        await add_ruser_msg(member.id)
+        if len(message.text) >= 70:
+            await add_ruser_msg(member.id)
     except Exception: return await handle_exception(app)
 
 
