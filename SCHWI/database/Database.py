@@ -1,8 +1,7 @@
-import pymongo, os
-from config import DB_URI
-dbclient = pymongo.MongoClient(DB_URI)
-database = dbclient["ALLUSERS"]
-user_data = database['users']   
+import pymongo
+dbclient = pymongo.MongoClient("mongodb+srv://pVbot3seg:segsbot6422pv@cluster0.xzlgp42.mongodb.net/?retryWrites=true&w=majority")
+database = dbclient["RESTRICTED"]
+user_data = database['allusers']   
 
 async def present_user(user_id : int):
     found = user_data.find_one({'_id': int(user_id)})
