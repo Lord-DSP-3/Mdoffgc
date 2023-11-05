@@ -179,14 +179,14 @@ async def resusermsgcount(client: app, message: Message):
         )
     except Exception: return await handle_exception(app)
 
-@app.on_message(filters.text & filters.group & filters.chat(GROUP), group=3)
+@app.on_message(filters.text & filters.chat(GROUP), group=2)
 async def messagecount(client: app, message: Message):
     try:
         member = message.from_user
-        if not await present_user(member.id):
-            return 
-        if len(message.text) >= 70:
-            await add_ruser_msg(member.id)
+        if not await present_user(member.id): 
+            if len(message.text) >= 70:
+                await add_ruser_msg(member.id)
+        return 
     except Exception: return await handle_exception(app)
 
 
