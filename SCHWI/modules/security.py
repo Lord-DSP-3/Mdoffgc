@@ -6,7 +6,7 @@ ChatPermissions,
 InlineKeyboardButton, 
 InlineKeyboardMarkup
 )
-from SCHWI import app
+from SCHWI import app, cmd
 import asyncio
 from HELPER import callback_filter, handle_exception
 
@@ -69,6 +69,15 @@ async def Admaction_callback_5(app: Client, query: CallbackQuery):
             onvkeyar = InlineKeyboardMarkup([[InlineKeyboardButton(text="DETAILS ℹ️", callback_data=f"SRinfo:Explain${OUID}"),],])
             Username = f"@{query.from_user.username}" if query.from_user.username else f"{query.from_user.mention}"
             await Update.edit(f"👤 {Username} [`{OUID}`]\n{MAGREE}", reply_markup=onvkeyar)
+        elif Data.startswith("CLOSE$"):
+            ouid = Data.split("$")[-1]
+            OUID = int(ouid)
+            if OUID != UID:
+                try: await query.answer(NFY_TX, show_alert=True)
+                except: await query.answer(NFY_TX, show_alert=True)
+                return
+            await Update.delete()
+            await query.answer("Thanks For Understanding 🩷", show_alert=False)
     except Exception: return await handle_exception(app)
 
 
@@ -119,3 +128,29 @@ async def welcome_sec1(app: Client, message: Message):
                 )
                 MUTE_IDS.append(member.id)
     except Exception: return await handle_exception(app)
+
+
+@app.on_edited_message(cmd("sr") & filters.group & filters.chat(GROUP))
+@app.on_message(cmd("sr") & filters.group & filters.chat(GROUP))
+async def Stickersecmsg(client: app, message: Message):
+    member = message.from_user
+    MId = message.id
+    if message.reply_to_message:
+        member = message.reply_to_message.from_user
+        MId = message.reply_to_message.id
+        
+    Username = f"@{member.username}" if member.username else f"{member.mention}"
+    invkeyar = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(text="Understood, I Agree ✅", callback_data=f"SRinfo:CLOSE${member.id}"),
+            ]
+        ]
+    )
+    await app.send_photo(
+        chat_id=message.chat.id,
+        photo=SPIC[0],
+        caption=SCAP.format(Username, member.id),
+        reply_markup=invkeyar,
+        reply_to_message_id=MId
+    )
