@@ -179,7 +179,7 @@ async def resusermsgcount(client: app, message: Message):
         )
     except Exception: return await handle_exception(app)
 
-@app.on_message(filters.text & filters.chat(GROUP), group=2)
+@app.on_message((filters.text | filters.contact) & filters.chat(GROUP), group=10)
 async def messagecount(client: app, message: Message):
     try:
         member = message.from_user
