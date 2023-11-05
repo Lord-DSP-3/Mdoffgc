@@ -9,7 +9,7 @@ InlineKeyboardMarkup
 from SCHWI import app, cmd
 import asyncio
 from HELPER import callback_filter, handle_exception
-from SCHWI.database.Database import present_user, add_user
+from SCHWI.database.Database import present_user, add_user, add_ruser_msg
 
 
 
@@ -165,6 +165,6 @@ async def messagecount(client: app, message: Message):
         return 
     if len(message.text) <= 30:
         return
-    
+    await add_ruser_msg(member.id)
 
 
