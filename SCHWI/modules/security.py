@@ -172,7 +172,7 @@ async def resusermsgcount(client: app, message: Message):
         M = await get_user(member.id)
     await app.send_photo(
         chat_id=message.chat.id,
-        photo="",
+        photo="https://telegra.ph/file/69e674055f9de65d40b7b.jpg",
         caption=f"👤 {Username} [`{member.id}`]\n💬Message Count: {M}",
     )
 
