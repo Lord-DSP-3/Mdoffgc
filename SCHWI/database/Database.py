@@ -5,13 +5,13 @@ database = dbclient["ALLUSERS"]
 user_data = database['users']   
 
 async def present_user(user_id : int):
-    found = user_data.find_one({'_id': user_id})
+    found = user_data.find_one({'_id': int(user_id)})
     return bool(found)
 
 async def add_user(user_id: int):
     user_data.insert_one(
       {
-        '_id': user_id,
+        '_id': int(user_id),
         'msg': 0
       }
     )
@@ -27,5 +27,11 @@ async def full_userbase():
 
 async def del_user(user_id: int):
     if await present_user(user_id):
-        user_data.delete_one({'_id': user_id})
+        user_data.delete_one({'_id': int(user_id)})
     return
+
+async def add_ruser_msg(user_id: int):
+    user_data.update_one(
+        {'_id': int(user_id)},
+        {'$inc': {'msg': 1}}
+    )
