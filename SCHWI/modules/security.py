@@ -164,25 +164,30 @@ async def Stickersecmsg(client: app, message: Message):
 
 @app.on_message(cmd(["cm", "minfo"]) & filters.group & filters.chat(GROUP))
 async def resusermsgcount(client: app, message: Message):
-    member = message.from_user
-    if message.reply_to_message:
-        member = message.reply_to_message.from_user
+    try: 
+        member = message.from_user
+        if message.reply_to_message:
+            member = message.reply_to_message.from_user
         
-    if await present_user(member.id):
-        M = await get_user(member.id)
-    await app.send_photo(
-        chat_id=message.chat.id,
-        photo="https://telegra.ph/file/69e674055f9de65d40b7b.jpg",
-        caption=f"👤 {Username} [`{member.id}`]\n💬Message Count: {M}",
-    )
+        if await present_user(member.id):
+            M = await get_user(member.id)
+        Username = f"@{member.username}" if member.username else f"{member.mention}"
+        await app.send_photo(
+            chat_id=message.chat.id,
+            photo="https://telegra.ph/file/69e674055f9de65d40b7b.jpg",
+            caption=f"👤 {Username} [`{member.id}`]\n💬Message Count: {M}",
+        )
+    except Exception: return await handle_exception(app)
 
 @app.on_message(filters.text & filters.group & filters.chat(GROUP), group=3)
 async def messagecount(client: app, message: Message):
-    member = message.from_user
-    if not await present_user(member.id):
-        return 
-    if len(message.text) <= 70:
-        return
-    await add_ruser_msg(member.id)
+    try:
+        member = message.from_user
+        if not await present_user(member.id):
+            return 
+        if len(message.text) <= 70:
+            return
+        await add_ruser_msg(member.id)
+    except Exception: return await handle_exception(app)
 
 
