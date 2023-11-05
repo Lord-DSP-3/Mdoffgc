@@ -9,7 +9,12 @@ InlineKeyboardMarkup
 from SCHWI import app, cmd
 import asyncio
 from HELPER import callback_filter, handle_exception
-from SCHWI.database.Database import present_user, add_user, add_ruser_msg
+from SCHWI.database.Database import (
+present_user, 
+add_user, 
+add_ruser_msg,
+get_user
+)
 
 
 
@@ -157,6 +162,19 @@ async def Stickersecmsg(client: app, message: Message):
         reply_to_message_id=MId
     )
 
+@app.on_message(cmd(["cm", "minfo"]) & filters.group & filters.chat(GROUP))
+async def resusermsgcount(client: app, message: Message):
+    member = message.from_user
+    if message.reply_to_message:
+        member = message.reply_to_message.from_user
+        
+    if await present_user(member.id):
+        M = await get_user(member.id)
+    await app.send_photo(
+        chat_id=message.chat.id,
+        photo="",
+        caption=f"👤 {Username} [`{member.id}`]\n💬Message Count: {M}",
+    )
 
 @app.on_message(filters.text & filters.group & filters.chat(GROUP), group=3)
 async def messagecount(client: app, message: Message):
