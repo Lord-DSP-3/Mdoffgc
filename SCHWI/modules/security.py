@@ -150,7 +150,7 @@ async def Stickersecmsg(client: app, message: Message):
     await app.send_photo(
         chat_id=message.chat.id,
         photo=SPIC[0],
-        caption=SCAP.format(Username, member.id),
+        caption=f"👤 {Username} [`{member.id}`]\n{SCAP_E2}",
         reply_markup=invkeyar,
         reply_to_message_id=MId
     )
