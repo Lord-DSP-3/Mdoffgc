@@ -174,6 +174,8 @@ async def resusermsgcount(client: app, message: Message):
         
         if await present_user(member.id):
             M = await get_user(member.id)
+            if not M:
+                return await message.reply("Not Restricted By Me ツ")
         Username = f"@{member.username}" if member.username else f"{member.mention}"
         await app.send_photo(
             chat_id=message.chat.id,
