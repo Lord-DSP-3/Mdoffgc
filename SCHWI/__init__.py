@@ -6,7 +6,7 @@ from pyrogram import Client, filters
 loop = asyncio.get_event_loop()
 boot = time.time()
 
-
+GROUP = -1001525634215
 botid = 0
 botusername = ""
 
