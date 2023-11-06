@@ -30,7 +30,7 @@ def parse_com(com, key):
   return r
 
 BOT1_TOKEN = "5721709783:AAHWao6d-4QYWBRzRpohYzHh6USUe9BWhrE"
-STRING_SSS = ""
+STRING_SSS = "AQGL2L0AIfJZAcx1H3ofv-OmLxCaooH82_qVnr87AxnavjCKSVeoJwsKnQoFS3LcXJFRQqBq2eDxSCjL9s8x4TiwiC03LrdO-obyOWLbtfF5nFYGasPs2_FvaoXoWOSTrHHT3FpgYWrzzq2M1m_x7KEjxhFOrBNL_Xwydu9QHFumesfq0mzhPCtGssit-dbKBwYYz6QGQl1DsE-CKcmtPV3DTvUbDzXOojJVInggnq4GwMyzzAsWBkcr8Jb6usuOpHVT9bErmoOAGOm0exvp7iyOIbdGXXIwqirUWfUEDSE90tgCWJVYvBaRweUkySVGDE150Cm-BWOewhO2Zmyiw6WAtU4ligAAAAFKRZVtAA"
 
 app = Client(
     "SecuritBot",
