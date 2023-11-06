@@ -1,0 +1,21 @@
+PACKCHOICES = [
+    "Kf7f38b1cc56033dfa985_by_StickerStealRobot",
+    "GTHmovemotes",
+    "K2bd207bcd2058114aaee_by_StickerStealRobot",
+    "Kd05b69ac5630191dc619_by_StickerStealRobot",
+    "Menharachan01_by_stickermakerxbot",
+    "Menharachan02_by_stickermakerxbot",
+    "Menharachan003_by_stickermakerxbot",
+    "Menharachan04_by_stickermakerxbot",
+    "Menharachan05_by_stickermakerxbot",
+    "Menharachan06_by_stickermakerxbot",
+    "Menharachan07_by_stickermakerxbot",
+    "K0241109c9b30191dc619_by_StickerStealRobot",
+    "K51ce1da50830191dc619_by_StickerStealRobot",
+    "K10d2a5ecaf30191dc619_by_StickerStealRobot",
+    "K1504d9411430191dc619_by_StickerStealRobot",
+    "K3c6180c71d30191dc619_by_StickerStealRobot",
+    "Kd109852cd06033dfa985_by_StickerStealRobot",
+    "Kbd42748b8730191dc619_by_StickerStealRobot",
+    "Kd80b4c92cf6ae689998c_by_StickerStealRobot"
+]
