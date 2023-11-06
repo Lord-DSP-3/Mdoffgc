@@ -6,7 +6,7 @@ ChatPermissions,
 InlineKeyboardButton, 
 InlineKeyboardMarkup
 )
-from SCHWI import app, cmd
+from SCHWI import app, cmd, GROUP
 import asyncio
 from HELPER import callback_filter, handle_exception
 from SCHWI.database.Database import (
@@ -17,8 +17,6 @@ get_user
 )
 
 
-
-GROUP = -1001525634215
 SPIC = [
     "https://graph.org/file/3ad7a84ee06897b580ced.jpg"
 ]
