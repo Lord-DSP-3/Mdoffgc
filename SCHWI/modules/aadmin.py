@@ -14,12 +14,15 @@ async def mgc_allmsg(bot: bot, message: Message):
         user = message.from_user
         if message.text:
             if Reply:
-                pass
+                if Reply.from_user.id == userbotid:
+                    pass #FUNC
+                else:
+                    pass
             else:
-                pass
-            if await present_user(member.id):
+                pass #FUNC
+            if await present_user(user.id):
                 if len(message.text) >= 70:
-                    await add_ruser_msg(member.id)
+                    await add_ruser_msg(user.id)
         elif message.sticker:
             if Reply:
                 if Reply.from_user.id == userbotid:
