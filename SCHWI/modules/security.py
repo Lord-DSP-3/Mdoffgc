@@ -133,7 +133,7 @@ async def welcome_sec1(app: Client, message: Message):
                 if not await present_user(member.id):
                     await add_user(member.id)
                     await bot.send_photo(
-                        chat_id=message.chat.id,
+                        chat_id=member.id,
                         photo=SPIC[0],
                         caption=SCAP_E2,
                         reply_markup=Ronvkeyar,
