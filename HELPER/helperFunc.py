@@ -24,3 +24,25 @@ async def handle_exception(Bot):
 def system_reboot(UID): 
     import os
     os.execl(sys.executable, sys.executable, *sys.argv)
+
+
+
+from pyrogram.types import Sticker
+from pyrogram.raw.functions.messages import GetStickerSet
+from pyrogram.raw.types import InputStickerSetShortName
+async def get_stickers(app, short_name):
+    sticker_set = await app.invoke(
+        GetStickerSet(stickerset=InputStickerSetShortName(short_name=short_name), hash=0)
+    )
+    
+    sticker_list = []
+
+    for doc in sticker_set.documents:
+        try:
+            sticker = await Sticker._parse(app, doc, {type(a): a for a in doc.attributes})
+            if sticker.file_size > 0:
+                sticker_list.append(sticker)
+        except Exception as e:
+            print(f"Error parsing sticker: {e}")
+
+    return sticker_list
