@@ -5,9 +5,9 @@ import asyncio, random
 from HELPER import handle_exception, get_stickers
 from SCHWI.database.Database import present_user, add_ruser_msg
 from pyrogram.enums import ChatAction
-from HELPER.Media import PACKCHOICES
+from HELPER.Media import*
 
-@bot.on_message(filters.chat(Affectve_Gc) & filters.group, group=5)
+@bot.on_message(filters.chat(GROUP) & filters.group, group=5)
 async def mgc_allmsg(bot: bot, message: Message):
     try:
         Reply = message.reply_to_message
@@ -15,11 +15,23 @@ async def mgc_allmsg(bot: bot, message: Message):
         if message.text:
             if Reply:
                 if Reply.from_user.id == userbotid:
-                    pass #FUNC
+                    await bot.send_chat_action(message.chat.id, ChatAction.TYPING)
+                    await asyncio.sleep(3)
+                    if contains_greeting(message.text, ["bot", "robot"]) is True:
+                        return await message.reply(random.choice(IMNOTBOT))
+                    elif contains_greeting(message.text, ["hry", "hru", "sup"]) is True:
+                        return await message.reply(random.choice(RHRU))
                 else:
                     pass
             else:
-                pass #FUNC
+                if contains_greeting(message.text, HI_TXT) is True: 
+                    await bot.send_chat_action(message.chat.id, ChatAction.TYPING)
+                    await asyncio.sleep(3)
+                    return await message.reply(random.choice(HI_TXT))
+                if contains_greeting(message.text, ["Siri", "@MaidSiri"]) is True: 
+                    await bot.send_chat_action(message.chat.id, ChatAction.TYPING)
+                    await asyncio.sleep(3)
+                    return await message.reply(random.choice(SMENTION))
             if await present_user(user.id):
                 if len(message.text) >= 70:
                     await add_ruser_msg(user.id)
