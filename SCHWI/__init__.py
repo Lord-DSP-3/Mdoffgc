@@ -9,6 +9,7 @@ boot = time.time()
 GROUP = -1001525634215
 botid = 0
 botusername = ""
+userbotid = 0
 
 from typing import Union
 def cmd(comm: Union[list, str]):
@@ -45,12 +46,14 @@ bot = Client(
 )
 
 async def initiate_bot():
-    global botid, botusername
+    global botid, botusername, userbotid
     await app.start()
     await bot.start()
     getme = await app.get_me()
     botid = getme.id
     botusername = (getme.username).lower()
-
+    get_me = await bot.get_me()
+    userbotid = get_me.id
+    
 
 loop.run_until_complete(initiate_bot())
