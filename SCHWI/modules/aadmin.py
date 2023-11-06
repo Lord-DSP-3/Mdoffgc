@@ -1,8 +1,8 @@
 from pyrogram import filters, Client
 from pyrogram.types import Message
 from SCHWI import bot, cmd, GROUP, userbotid
-import asyncio
-from HELPER import handle_exception
+import asyncio, random
+from HELPER import handle_exception, get_stickers
 from SCHWI.database.Database import present_user, add_ruser_msg
 from pyrogram.enums import ChatAction
 
