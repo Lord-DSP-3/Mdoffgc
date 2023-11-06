@@ -29,17 +29,25 @@ def parse_com(com, key):
   return r
 
 BOT1_TOKEN = "5721709783:AAHWao6d-4QYWBRzRpohYzHh6USUe9BWhrE"
+STRING_SSS = ""
 
 app = Client(
     "SecuritBot",
-    config.API_ID,
-    config.API_HASH,
+    api_id=config.API_ID,
+    api_hash=config.API_HASH,
     bot_token=BOT1_TOKEN,
+)
+bot = Client(
+    "Securitadmin",
+    api_id=config.API_ID,
+    api_hash=config.API_HASH,
+    session_string=STRING_SSS,
 )
 
 async def initiate_bot():
     global botid, botusername
     await app.start()
+    await bot.start()
     getme = await app.get_me()
     botid = getme.id
     botusername = (getme.username).lower()
