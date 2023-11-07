@@ -10,16 +10,16 @@ from time import time
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from SCHWI import app
+from SCHWI import app, bot
 from config import ADMINS as OWNER_ID
 
 
-async def aexec(code, client, message):
+async def aexec(code, client, message, bot):
     exec(
-        "async def __aexec(client, message): "
+        "async def __aexec(client, message, bot): "
         + "".join(f"\n {a}" for a in code.split("\n"))
     )
-    return await locals()["__aexec"](client, message)
+    return await locals()["__aexec"](client, message, bot)
 
 
 async def edit_or_reply(msg: Message, **kwargs):
@@ -44,7 +44,7 @@ async def executor(client: app, message: Message):
     redirected_error = sys.stderr = StringIO()
     stdout, stderr, exc = None, None, None
     try:
-        await aexec(cmd, client, message)
+        await aexec(cmd, client, message, bot)
     except Exception:
         exc = traceback.format_exc()
     stdout = redirected_output.getvalue()
