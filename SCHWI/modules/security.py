@@ -171,7 +171,8 @@ async def resusermsgcount(client: app, message: Message):
         member = message.from_user
         if message.reply_to_message:
             member = message.reply_to_message.from_user
-        
+
+        M = "Null"
         if await present_user(member.id):
             M = await get_user(member.id)
             if not M:
