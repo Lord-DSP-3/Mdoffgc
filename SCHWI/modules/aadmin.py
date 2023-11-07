@@ -38,6 +38,7 @@ async def resusermsgcount(bot: bot, message: Message):
 
 @bot.on_message(cmd("regc") & filters.user(ADMINS))
 async def reloadgcids(bot: bot, message: Message):
+    global MASS_ADDGC
     try:
         list1 = MASS_ADDGC
         list2 = await full_groupbase()
