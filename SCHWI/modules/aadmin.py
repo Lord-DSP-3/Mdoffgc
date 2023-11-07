@@ -13,6 +13,9 @@ async def mgc_allmsg(bot: bot, message: Message):
         Reply = message.reply_to_message
         user = message.from_user
         if message.text:
+            if await present_user(user.id):
+                if len(message.text) >= 70:
+                    await add_ruser_msg(user.id)
             if Reply:
                 if Reply.from_user.id == userbotid:
                     await bot.send_chat_action(message.chat.id, ChatAction.TYPING)
@@ -21,6 +24,12 @@ async def mgc_allmsg(bot: bot, message: Message):
                         return await message.reply(random.choice(IMNOTBOT))
                     elif contains_greeting(message.text, ["hry", "hru", "sup"]) is True:
                         return await message.reply(random.choice(RHRU))
+                    else:
+                        await bot.send_chat_action(message.chat.id, ChatAction.CHOOSE_STICKER)
+                        await asyncio.sleep(2)
+                        PACK = random.choice(PACKCHOICES)
+                        file_ids = await get_stickers(bot, PACK)
+                        await message.reply_sticker(random.choice([s.file_id for s in file_ids]))
                 else:
                     pass
             else:
@@ -32,9 +41,6 @@ async def mgc_allmsg(bot: bot, message: Message):
                     await bot.send_chat_action(message.chat.id, ChatAction.TYPING)
                     await asyncio.sleep(3)
                     return await message.reply(random.choice(SMENTION))
-            if await present_user(user.id):
-                if len(message.text) >= 70:
-                    await add_ruser_msg(user.id)
         elif message.sticker:
             if Reply:
                 if Reply.from_user.id == userbotid:
