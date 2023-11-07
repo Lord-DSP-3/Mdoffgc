@@ -3,9 +3,39 @@ from pyrogram.types import Message
 from SCHWI import bot, cmd, GROUP, userbotid
 import asyncio, random
 from HELPER import handle_exception, get_stickers
-from SCHWI.database.Database import present_user, add_ruser_msg
-from pyrogram.enums import ChatAction
+from SCHWI.database.Database import (
+present_user, 
+add_ruser_msg,
+present_group,
+add_group
+)
+from pyrogram.enums import ChatAction, ChatMembersFilter
 from HELPER.Media import*
+from config import ADMINS
+
+MASS_ADDGC = []
+
+
+@bot.on_message(cmd("addgc") & filters.user(ADMINS))
+async def resusermsgcount(bot: bot, message: Message):
+    try:
+        chatid = message.command[1]
+        chat_id = int(chatid)
+        MASS_ADDGC.append(chat_id)
+        async def get_admins():
+            async for admin in bot.get_chat_members(chat_id, filter=ChatMembersFilter.ADMINISTRATORS):
+                yield admin
+        TA_Adm = []
+        async for admin in get_admins():
+            if admin.privileges.can_manage_chat is True:
+                TA_Adm.append(str(int(admin.user.id)))
+
+        TAC = len(TA_Adm)
+        await add_group(chat_id, TA_Adm)
+        await message.reply(f"✅ADDED GROUP [{chat_id}]\nTotal Admins: {TAC}\n\n```python\n[{TA_Adm}]\n```")
+    except Exception: return await handle_exception(bot)
+
+        
 
 @bot.on_message(filters.chat(GROUP) & filters.group, group=5)
 async def mgc_allmsg(bot: bot, message: Message):
@@ -52,7 +82,7 @@ async def mgc_allmsg(bot: bot, message: Message):
     except Exception: return await handle_exception(bot)
 
 
-@bot.on_message(~filters.chat(GROUP) & filters.group, group=10)
+@bot.on_message(filters.chat(MASS_ADDGC) & filters.group, group=10)
 async def massaddd_mem(bot: bot, message: Message):
     try:
         GC = await present_group(message.chat.id)
