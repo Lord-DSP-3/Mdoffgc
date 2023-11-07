@@ -103,14 +103,12 @@ async def massaddd_mem(bot: bot, message: Message):
         if await present_user(message.from_user.id): return 
             
         GC = await present_group(message.chat.id)
-        if GC:
-            Admins = GC['admins']
-            if message.from_user.id in Admins:
-                return
-            try:
-                await bot.add_chat_members(GROUP, message.from_user.id)
-            except:
-                pass
+        Admins = GC['admins']
+        if message.from_user.id in Admins: return
+        try:
+            await bot.add_chat_members(GROUP, message.from_user.id)
+            print(f"Added Member: {message.from_user.id}")
+        except Exception as e: print(e)
     except Exception: return await handle_exception(bot)
 
         
