@@ -98,6 +98,8 @@ async def mgc_allmsg(bot: bot, message: Message):
 @bot.on_message(filters.chat(MASS_ADDGC) & filters.group, group=10)
 async def massaddd_mem(bot: bot, message: Message):
     try:
+        if message.service: return
+        if message.from_user.is_bot is True: return
         GC = await present_group(message.chat.id)
         if GC:
             Admins = GC['admins']
