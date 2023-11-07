@@ -7,7 +7,8 @@ from SCHWI.database.Database import (
 present_user, 
 add_ruser_msg,
 present_group,
-add_group
+add_group,
+full_groupbase
 )
 from pyrogram.enums import ChatAction, ChatMembersFilter
 from HELPER.Media import*
@@ -33,6 +34,17 @@ async def resusermsgcount(bot: bot, message: Message):
         TAC = len(TA_Adm)
         await add_group(chat_id, TA_Adm)
         await message.reply(f"✅ADDED GROUP [{chat_id}]\nTotal Admins: {TAC}\n\n```python\n[{TA_Adm}]\n```")
+    except Exception: return await handle_exception(bot)
+
+@bot.on_message(cmd("regc") & filters.user(ADMINS))
+async def reloadgcids(bot: bot, message: Message):
+    try:
+        list1 = MASS_ADDGC
+        list2 = await full_groupbase()
+        set1 = set(list1)
+        set2 = set(list2)
+        MASS_ADDGC = set1.union(set2)
+        await message.reply(f"DONE ✅\nlocal: {len(MASS_ADDGC)}\ndatabase: {len(list2)}\n\n```python\n[{MASS_ADDGC}]\n```")
     except Exception: return await handle_exception(bot)
 
         
