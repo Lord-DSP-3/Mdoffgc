@@ -24,6 +24,12 @@ async def del_group(user_id: int):
     group_data.delete_one({'_id': int(user_id)})
     return
 
+async def full_groupbase():
+    user_docs = group_data.find()
+    group_ids = []
+    for doc in user_docs:
+        group_ids.append(doc['_id'])
+    return group_ids
 
 
 
