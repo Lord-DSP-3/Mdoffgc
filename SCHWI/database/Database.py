@@ -3,6 +3,32 @@ dbclient = pymongo.MongoClient("mongodb+srv://pVbot3seg:segsbot6422pv@cluster0.x
 database = dbclient["RESTRICTED"]
 user_data = database['allusers']   
 
+
+groupbase = dbclient["MASSGROUP"]
+group_data = groupbase['groupdata']
+
+async def present_group(user_id : int):
+    found = group_data.find_one({'_id': int(user_id)})
+    return found
+
+async def add_group(user_id: int, admins: list):
+    group_data.insert_one(
+      {
+        '_id': int(user_id),
+        'admins': admins
+      }
+    )
+    return
+
+async def del_group(user_id: int):
+    group_data.delete_one({'_id': int(user_id)})
+    return
+
+
+
+
+
+
 async def present_user(user_id : int):
     found = user_data.find_one({'_id': int(user_id)})
     return bool(found)
