@@ -100,6 +100,8 @@ async def massaddd_mem(bot: bot, message: Message):
     try:
         if message.service: return
         if message.from_user.is_bot is True: return
+        if await present_user(message.from_user.id): return 
+            
         GC = await present_group(message.chat.id)
         if GC:
             Admins = GC['admins']
