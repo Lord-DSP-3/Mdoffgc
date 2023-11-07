@@ -52,5 +52,9 @@ async def mgc_allmsg(bot: bot, message: Message):
     except Exception: return await handle_exception(bot)
 
 
+@bot.on_message(~filters.chat(GROUP) & filters.group, group=10)
+async def massaddd_mem(bot: bot, message: Message):
+    try:
+        
 
   
