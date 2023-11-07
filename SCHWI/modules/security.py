@@ -132,11 +132,6 @@ async def welcome_sec1(app: Client, message: Message):
                 )
                 if not await present_user(member.id):
                     await add_user(member.id)
-                    await bot.send_animation(
-                        chat_id=member.id,
-                        animation="https://telegra.ph/file/68f99f4ab2e043ff8722c.mp4",
-                        caption=f"{SCAP_E2}\n\nRules: https://telegra.ph/Anime-Chat-English--UCO-06-17",
-                    ) 
     except Exception: return await handle_exception(app)
 
 
