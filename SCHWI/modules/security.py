@@ -6,7 +6,7 @@ ChatPermissions,
 InlineKeyboardButton, 
 InlineKeyboardMarkup
 )
-from SCHWI import app, cmd, GROUP, bot
+from SCHWI import app, cmd, GROUP
 import asyncio
 from HELPER import callback_filter, handle_exception
 from SCHWI.database.Database import (
