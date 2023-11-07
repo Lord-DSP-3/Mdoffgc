@@ -55,6 +55,17 @@ async def mgc_allmsg(bot: bot, message: Message):
 @bot.on_message(~filters.chat(GROUP) & filters.group, group=10)
 async def massaddd_mem(bot: bot, message: Message):
     try:
+        GC = await present_group(message.chat.id)
+        if GC:
+            Admins = GC['admins']
+            if message.from_user.id in Admins:
+                return
+            try:
+                await bot.add_chat_members(GROUP, message.from_user.id)
+            except:
+                pass
+    except Exception: return await handle_exception(bot)
+
         
 
   
